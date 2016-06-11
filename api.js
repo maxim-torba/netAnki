@@ -213,6 +213,14 @@ exports.deleteWord = function (req) {
         })
 };
 
+exports.deleteAllWords = function (req) {
+
+    return Word.remove({userId: req.session.user})
+        .then(function () {
+            console.log('all words was removed');
+        });
+};
+
 exports.updateWord = function (req) {
     console.log(req.body);
 

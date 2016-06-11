@@ -415,7 +415,7 @@ $(function () {
 
                         if (i == data.length - 1) {
                             ul.find('p').fadeOut(200, function () {
-                                $('#totalNumb').text('the total number of words: '+data.length);
+                                $('#totalNumb').text('the total number of words: ' + data.length);
                                 $(ul).append(liItems);
                                 $('#previousWordsFoEdit, #nextWordsFoEdit')
                                     .css('display', 'block')
@@ -437,6 +437,7 @@ $(function () {
                                                 scrollTop: scrollTO
                                             });
                                         }
+
                                         doScroll();
                                     })
                                     .on('mouseup', function () {
@@ -501,6 +502,20 @@ $(function () {
 
     $('#btn-delWord').on('click', delWord);
 
+    $('.btn-delAllWords').on('click', function () {
+        $.ajax({
+            url: "/words/deleteall",
+            method: "GET",
+            success: function () {
+                showMessage('all words were removed');
+                noWords();
+            },
+            error: function () {
+                showMessage('can not delete all words due to problems with the Internet');
+            }
+        });
+    });
+
     function delWord(e) {
         var word = $(e.target).closest('li').find('input[name="eword"]').data('old') || words[wordsCounter].word;
         $.ajax({
@@ -520,9 +535,15 @@ $(function () {
     }
 
     function noWords() {
-       // $('#wrapperOfWords').slideUp(200);
-        $('#side1').fadeIn(200).find('#word').text('no words yet');
-      //  showMessage('at the moment, no words');
+        /*$('#wrapperOfWords').slideUp(200, function () {
+
+         });*/
+        var side1 = $('#side1');
+        side1.fadeIn(200).find('#word').text('no words yet');
+        side1.find('#transcription').text('');
+        $('#side2').slideUp(400);
+        $('.imgWraper').slideUp(400);
+        //  showMessage('at the moment, no words');
     }
 
     function showMessage(mes) {
