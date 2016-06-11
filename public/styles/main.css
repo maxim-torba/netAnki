@@ -219,7 +219,7 @@ form[name='editWord'] span {
 .fixed-action-btn {
     /*left: 50px;*/
     top: 10px;
-    right: auto;
+    right: 90%;
 }
 
 .fixed-action-btn ul {
@@ -272,6 +272,9 @@ form[name='editWord'] span {
 
     #wordsLeft {
         margin-left: 80%;
+    }
+    .fixed-action-btn {
+        right: auto;
     }
 
     #soundControl, #editCurrentWord {
