@@ -1,0 +1,35 @@
+/*
+#entering{
+    margin-top: 50%;
+}*/
+.container {
+    margin-top: 10%;
+}
+
+#entering form {
+    margin-top: 30px;
+}
+
+#about {
+    margin-right: 50px;
+    margin-top: 50px;
+}
+
+input[type]{
+    padding-left: 7px;
+}
+
+
+@media only screen and (max-width: 600px) {
+    .container {
+        margin-top: 5%;
+    }
+
+    #entering {
+        margin-top: 20px;
+    }
+
+    #entering form {
+        margin-top: 10px;
+    }
+}

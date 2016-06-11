@@ -1,12 +1,46 @@
 {
-  "name": "openshift-cartridge-nodejs-template",
-  "version": "1.0.1",
-  "description": "Custom Node.js cartridge for OpenShift - sample application",
-  "private": true,
-  "main": "start.js",
-  "scripts": {
-    "start": "node --use_strict start.js"
+  "name": "web-anki",
+  "version": "0.0.1",
+  "description": "it's will be the best of any online anki in the world",
+  "main": "server.js",
+  "dependencies": {
+    "async": "^2.0.0-rc.4",
+    "body-parser": "^1.15.0",
+    "compression": "^1.6.2",
+    "connect-mongo": "^1.1.0",
+    "crypto": "0.0.3",
+    "ejs": "^2.4.1",
+    "errorhandler": "^1.4.3",
+    "express": "^4.13.4",
+    "express-session": "^1.13.0",
+    "flat": "^2.0.0",
+    "http-errors": "^1.4.0",
+    "method-override": "^2.3.5",
+    "mongoose": "^4.4.14",
+    "morgan": "^1.7.0",
+    "multer": "^1.1.0",
+    "nconf": "^0.8.4",
+    "passport": "^0.3.2",
+    "pug": "^2.0.0-alpha6",
+    "request": "^2.72.0",
+    "serve-favicon": "^2.3.0",
+    "tough-cookie": "^2.2.2",
+    "util": "^0.10.3",
+    "winston": "^2.2.0"
   },
-  "author": "Ionut-Cristian Florescu <ionut.florescu@gmail.com>",
-  "license": "ISC"
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/maximTorba/netAnki.git"
+  },
+  "bugs": {
+    "url": "https://github.com/maximTorba/netAnki/issues"
+  },
+  "homepage": "https://github.com/maximTorba/netAnki#readme"
 }

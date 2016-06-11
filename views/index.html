@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>netAnki</title>
+    <link rel="shortcut icon" href="/img/favicon.png" type="image/png">
+    <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link type="text/css" rel="stylesheet" href="/styles/materialize.min.css" media="screen,projection"/>
+    <link rel="stylesheet" href="/styles/main.css" type="text/css" media="screen"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+</head>
+<body class="indigo lighten-5">
+<div class="container">
+
+    <div id="wrapperOfWords" class="row s12 m12 l10 center-align">
+        <div id="side1">
+            <h1 id="word"></h1>
+            <h2 id="transcription"></h2>
+        </div><!--class="inpVal row s12 m12 l10"-->
+        <!--    <div>
+                <input id="inputValidation" autofocus type="text" autocomplete="off" placeholder="enter the translation">
+            </div>-->
+        <div class="divider"></div>
+
+        <div id="side2">
+            <h1 id="translate"></h1>
+            <h2 id="example" class="flow-text"></h2>
+        </div>
+
+        <div class="imgWraper">
+            <img id="img">
+
+        </div>
+        <!-- <canvas id="canvas" width="300" height="200"></canvas>-->
+        <audio id="sound" type="audio/mpeg"></audio>
+    </div>
+
+    <div id="wrapperOfBtnFoWords" class="center-align">
+        <a id="showTranslate" class="waves-effect waves-teal btn-flat hoverable">show translate</a>
+        <div class="grade-btns">
+            <input class="btn-floating" type="button" id="f0" value="0">
+            <input class="btn-floating" type="button" id="f1" value="1">
+            <input class="btn-floating" type="button" id="f2" value="2">
+            <input class="btn-floating" type="button" id="f3" value="3">
+            <input class="btn-floating" type="button" id="f4" value="4">
+            <input class="btn-floating" type="button" id="f5" value="5">
+        </div>
+    </div>
+
+    <div class="fixed-action-btn <!--click-to-toggle--> menu">
+        <a class="btn-menu btn-floating btn-large blue-grey lighten-4 waves-effect waves-light hoverable">
+            <i class="material-icons menu">menu</i>
+        </a>
+        <ul>
+            <li><a class="btn-floating blue-grey lighten-4 tooltipped btn waves-effect waves-light modal-trigger"
+                   id="btn-editDict"
+                   href="#wrapperOfDict"
+                   data-position="right" data-delay="50"
+                   data-tooltip="edit dictionary">
+                <i class="material-icons">add</i></a>
+            </li>
+            <li><a class="btn-floating blue-grey lighten-4 tooltipped btn waves-effect waves-light modal-trigger"
+                   id="btn-settings"
+                   href="#wrapperOfSettings"
+                   data-position="right" data-delay="50"
+                   data-tooltip="settings">
+                <i class="material-icons">settings</i></a>
+            </li>
+            <li><a class="btn-floating blue-grey lighten-4 tooltipped btn waves-effect waves-light modal-trigger"
+                   id="btn-about"
+                   href="#wrapperAbout"
+                   data-position="right" data-delay="50"
+                   data-tooltip="about">
+                <i class="material-icons">info_outline</i></a>
+            </li>
+            <li><a id="btn-logout" class="btn-floating blue-grey lighten-4 waves-effect waves-light tooltipped"
+                   data-position="right"
+                   data-delay="50"
+                   data-tooltip="log out">
+                <i class="material-icons">lock</i></a>
+            </li>
+        </ul>
+    </div>
+    <!--TODO right and top numb of words-->
+    <div id="soundControl">
+        <a class="btn-floating blue-grey lighten-4 waves-effect waves-light tooltipped" id="btn-replay"
+           data-position="bottom" data-delay="50" data-tooltip="replay">
+            <i class="material-icons play">play_arrow</i></a>
+        <a class="btn-floating blue-grey lighten-4 tooltipped" id="btn-onOff"
+           data-position="bottom" data-delay="50" data-tooltip="turn off sound" data-value="true">
+            <i class="material-icons volume">volume_up</i></a>
+    </div>
+
+    <div id="editCurrentWord">
+        <a class="btn-floating blue-grey lighten-4 tooltipped waves-effect waves-light modal-trigger"
+           href="#modalEditCurrentWord"
+           id="btn-editCurrentWord"
+           data-position="bottom" data-delay="50" data-tooltip="edit current word">
+            <i class="material-icons volume">mode_edit</i></a>
+    </div>
+
+    <div id="modalEditCurrentWord" class="modal">
+        <div class="modal-content">
+            <button class="btn waves-effect waves-light" id="btn-delWord">delete word</button>
+            <button data-target="editAnotherWords" class="btn waves-effect waves-light modal-trigger anoter"
+                    id="btn-editAnother">edit another words
+            </button>
+            <br><br>
+            <form name="editWord">
+                <span>word</span>
+                <input name="eword" type="text" autofocus placeholder="enter the word">
+                <span>transcription</span>
+                <input name="etranscription" type="text" placeholder="enter the transcription">
+                <span>translate</span>
+                <input name="etranslate" type="text" placeholder="enter the translate">
+                <span>example</span>
+                <input name="eexample" type="text" placeholder="enter the example">
+                <span>picture url</span>
+                <input name="epic" type="text" placeholder="enter the url of picture">
+                <span>sound url</span>
+                <input name="esong" type="text" placeholder="enter the url of sound">
+                <br>
+                <button class="btn waves-effect waves-light" type="submit">save</button>
+            </form>
+        </div>
+    </div>
+
+    <!--TODO below make field of search -->
+    <div class="wrapperEditAnother">
+        <div id="editAnotherWords" class="modal">
+            <div class="modal-content">
+                <p id="totalNumb" class="flow-text">the total number of words:</p>
+                <button id="btn-delAllWords" class="btn waves-effect waves-light">delete all words</button>
+                <ul class="collapsible popout" data-collapsible="expandable">
+                    <p class="preloaderWrapper"><img src="img/preloader.gif"></p>
+                </ul>
+            </div>
+        </div>
+        <a id="nextWordsFoEdit">
+            <i class="material-icons">keyboard_arrow_down</i></a>
+        <a id="previousWordsFoEdit">
+            <i class="material-icons">keyboard_arrow_up</i></a>
+    </div>
+
+    <div id="wordsLeft">
+        <p></p>
+        <span>words left</span>
+    </div>
+
+    <div id="wrapperOfConfig">
+        <div id="wrapperOfDict" class="modal">
+            <div class="modal-content">
+                <button data-target="leoAuth" class="btn waves-effect waves-light modal-trigger">get from linguaLeo
+                </button>
+                <br>
+                <form name="setWords">
+                    <input name="sword" type="text" autofocus placeholder="enter the word">
+                    <input name="stranscription" type="text" placeholder="enter the transcription">
+                    <input name="stranslate" type="text" placeholder="enter the translate">
+                    <input name="sexample" type="text" placeholder="enter the example">
+                    <input name="spic" type="text" placeholder="enter the url of picture">
+                    <input name="ssong" type="text" placeholder="enter the url of sound">
+                    <br>
+                    <button class="btn waves-effect waves-light" type="submit">add word</button>
+                </form>
+            </div>
+        </div>
+
+        <div id="leoAuth" class="modal">
+            <div class="modal-content">
+                <form name="leoAuth">
+                    <input name="email" type="text" autocomplete="off" autofocus placeholder="enter leo email">
+                    <input name="password" type="text" autocomplete="off" autofocus
+                           placeholder="enter leo password">
+                    <button class="btn waves-effect waves-light" type="submit">get words</button>
+                </form>
+            </div>
+        </div>
+
+        <div id="wrapperOfSettings" class="modal">
+            <div class="modal-content">
+                max number of new words per day
+                <input type="number" id="maxNewCards"
+                       min="1" max="100" step="1" value="10">
+                <br>
+                max number of old words (words for repetition) per day
+                <input type="number" id="maxOldCards"
+                       min="1" max="100" step="1" value="10">
+                <br><br>
+                <input type="checkbox" id="autoGetter"/>
+                <label for="autoGetter">auto get data from LinguaLeo</label>
+            </div>
+        </div>
+
+        <div id="wrapperAbout" class="modal">
+            <div class="modal-content">
+                <h4>Here is the several nuances which seem important to me</h4>
+                <ul class="flow-text">
+                    <li>I use cookies for save your account id</li>
+                    <li>To calculate the time of repetition words i use <a
+                            href="https://www.supermemo.com/english/ol/sm2.htm">sm2</a> algorithm
+                    </li>
+                    <li>After each repetition assess the quality of repetition response in 0-5 grade scale:
+                        <ol reversed start="5">
+                            <li>5 - perfect response</li>
+                            <li>4 - correct response after a hesitation</li>
+                            <li>3 - correct response recalled with serious difficulty</li>
+                            <li>2 - incorrect response; where the correct one seemed easy to recall</li>
+                            <li>1 - incorrect response; the correct one remembered</li>
+                            <li>0 - complete blackout.
+                        </ol>
+                    </li>
+                    <li>You will continue the repetitions of each words until all of these items score at least
+                        three
+                    </li>
+                    <li>LinguaLeo do not have open api, so you need enter your email and password</li>
+                    <br>
+                    <li>Feedback:
+                        <ul>
+                            <li><a href="http://vk.com/maxim.torba">vk.com/maxim.torba</a></li>
+                            <li><a href="mailto:maxim.torba@gmail.com">maxim.torba@gmail.com</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<!--<svg xmlns="http://www.w3.org/2000/svg" version="1.1" width="0%" height="0%">
+    <filter id="Sharpen">
+        <feConvolveMatrix order="3 3" preserveAlpha="true" kernelMatrix="0 -1 0 -1 5 -1 0 -1 0"/>
+    </filter>
+</svg>-->
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.2/jquery.min.js"></script>
+<script type="text/javascript" src="/scripts/main.js"></script>
+<script type="text/javascript" src="/scripts/materialize.min.js"></script>
+</body>
+</html>

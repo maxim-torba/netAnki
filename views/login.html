@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>login</title>
+    <link rel="shortcut icon" href="/img/favicon.png" type="image/png">
+    <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link type="text/css" rel="stylesheet" href="/styles/materialize.min.css" media="screen,projection"/>
+    <link rel="stylesheet" href="/styles/login.css" type="text/css" media="screen"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.2/jquery.min.js"></script>
+</head>
+<body class="indigo lighten-5">
+<div class="container">
+
+    <div class="row"><!--offset-m1 offset-l2-->
+        <div class="col s12 m6 l6 right-align flow-text">
+            <p id="about">
+                Hi, here is the trainer of foreign words based on learning technique
+                <a href="https://en.wikipedia.org/wiki/Spaced_repetition">spaced repetitions</a>,
+                which uses
+                <a href="https://www.supermemo.com/english/ol/sm2.htm">sm2</a> algorithm.
+            </p>
+        </div>
+        <div class="col s12 m6 l6">
+            <div id="entering">
+                <h5>Entering/Registration:</h5>
+
+                <form name="login" class="right-align">
+                    <input name="username" tabindex="1" autofocus type="text" placeholder="your name"><br>
+                    <input name="password" tabindex="2" type="password" placeholder="your password"><br>
+                    <button tabindex="3" type="submit" class="btn waves-effect waves-light">ENTER</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<script type="application/javascript">
+    $(document.forms['login']).on('submit', function () {
+
+        var form = $(this);
+
+        $.ajax({
+            url: "/users",
+            method: "POST",
+            data: form.serialize(),
+
+            statusCode: {
+                200: function (data) {
+                    form.html("Welcome, " + data);
+                    window.location.href = "/";
+                },
+                403: function (jqXHR) {
+                    form.html(jqXHR.responseText);
+                    window.location.href = "/";
+                }
+            }
+        });
+        return false;
+    });
+
+</script>
+<script type="text/javascript" src="/scripts/materialize.min.js"></script>
+</body>
+</html>
