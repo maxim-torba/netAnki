@@ -106,23 +106,22 @@ function hash(text) {
 
 exports.getWords = function (userId, callback) {
     async.waterfall([
-        function (callback) {
-            User.findById(userId, function (err, user) {
-                if (err) throw err;
-                callback(null, user);
-            });
-        },
-        function (user, callback) {
-            Word.find({'userId': userId}, function (err, words) {
-                if (err) throw err;
-                callback(null, user, words);
-            });
-        },
-        function (user, words, callback) {
-            var newWordsInterval = new Date(user.dateNewWords);
-            var cards = [];
-            //TODO here is error, you need do it (below) only for new words, but there is and old word too
-            if (newWordsInterval <= today) {
+            function (callback) {
+                User.findById(userId, function (err, user) {
+                    if (err) throw err;
+                    callback(null, user);
+                });
+            },
+            function (user, callback) {
+                Word.find({'userId': userId}, function (err, words) {
+                    if (err) throw err;
+                    callback(null, user, words);
+                });
+            },
+            function (user, words, callback) {
+                var newWordsInterval = new Date(user.dateNewWords);
+                var cards = [];
+
                 var newCardCounter = 0,
                     oldCardCounter = 0;
                 var numOldWords = user.numWords.oldWords,
@@ -148,26 +147,27 @@ exports.getWords = function (userId, callback) {
                         card.EF = 2.5;
                     }
 
-                    if (!card.nextDate) {
-                        if (newCardCounter < maxNewCards) {
-                            card.nextDate = today;
-                            cards.push(card);
-                            newCardCounter++;
-                        }
-                    } else {
-                        if (oldCardCounter < maxOldCards) {
-                            var nextDate = new Date(card.nextDate);
-                            if (nextDate <= today) {
+                    if (!card.nextDate) { //then it new word
+                        if (newWordsInterval <= today) {
+                            if (newCardCounter < maxNewCards) {
+                                card.nextDate = today;
                                 cards.push(card);
-                                oldCardCounter++;
+                                newCardCounter++;
                             }
+                        }
+                    } else if (oldCardCounter < maxOldCards) {
+                        var nextDate = new Date(card.nextDate);
+                        if (nextDate <= today) {
+                            cards.push(card);
+                            oldCardCounter++;
                         }
                     }
                 }
+                callback(null, cards);
             }
-            callback(null, cards);
-        }
-    ], callback);
+        ],
+        callback
+    );
 };
 
 exports.getAllWords = function (req) {
@@ -214,9 +214,23 @@ exports.deleteWord = function (req) {
 };
 
 exports.deleteAllWords = function (req) {
+    var idUser = req.session.user;
 
-    return Word.remove({userId: req.session.user})
+    return Word.remove({userId: idUser})
         .then(function () {
+            var zeroDate = new Date(0);
+            User.findOneAndUpdate({_id: idUser}, {
+                dateNewWords: zeroDate
+            }, {
+                new: true
+            })
+                .then(function (data) {
+                    console.log(data);
+                })
+                .catch(function (err) {
+                    console.log(err)
+                });
+
             console.log('all words was removed');
         });
 };
@@ -267,6 +281,7 @@ exports.getLeoWords = function (req, callback) {
                 callback(null, leoEmail, leoPassword);
             }
         },
+        //TODO try without password and email
         function (leoEmail, leoPassword, callback) { //log and get leo words
 
             var userAddress = 'http://api.lingualeo.com/api/login?email=' + leoEmail + '&password=' + leoPassword;
@@ -317,10 +332,11 @@ exports.getLeoWords = function (req, callback) {
                         dateLastWord = user.linguaLeo.dateLastWord;
 
                     for (var i = 0; i < words.length; i++) {
-
-                        if (dateLastWord) {
-                            if (words[i].created_at <= dateLastWord) {
-                                continue;
+                        if (!req.body.email) { // if call from button - words will add not given dateLastWord
+                            if (dateLastWord) {
+                                if (words[i].created_at <= dateLastWord) {
+                                    continue;
+                                }
                             }
                         }
                         wordsCouner++;

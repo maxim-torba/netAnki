@@ -40,7 +40,7 @@ input[type="text"], input[type="number"] {
     outline: none;
 }
 
-#leoAuth {
+#leoAuth, #confirmationFoDelAll {
     width: 50%;
     margin-top: 10%;
 }

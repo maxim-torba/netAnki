@@ -218,70 +218,6 @@ $(function () {
 
     }
 
-    /*function drawImg() {
-
-     var canvas = $('#canvas')[0];
-
-     var ctx = canvas.getContext('2d');
-     var img = $('#img')[0];
-
-     ctx.drawImage(img, 0, 0);
-     var imgData = ctx.getImageData(0, 0, canvas.width, canvas.height);
-     var pixel = imgData.data;
-     var len = pixel.length;
-
-     /!*    for (var i = 0; i < len; i+=4) {  //inversion
-     pixel[i] = 255 - pixel[i];
-     pixel[i + 1] = 255 - pixel[i + 1];
-     pixel[i + 2] = 255 - pixel[i + 2];
-     }*!/
-
-     for (var i = 0; i < len; i += 4) {
-     if (pixel[i] > 230 && pixel[i + 1] > 230 && pixel[i + 2] > 230) {
-     pixel[i + 3] = 0;
-     }
-     }
-
-     ctx.putImageData(imgData, 0, 0);
-
-     /!*    Filters = {};
-     Filters.getPixels = function(img) {
-     var c = this.getCanvas(img.width, img.height);
-     var ctx = c.getContext('2d');
-     ctx.drawImage(img);
-     return ctx.getImageData(0,0,c.width,c.height);
-     };
-
-     Filters.getCanvas = function(w,h) {
-     var c = document.createElement('canvas');
-     c.width = w;
-     c.height = h;
-     return c;
-     };
-
-     Filters.filterImage = function(filter, image, var_args) {
-     var args = [this.getPixels(image)];
-     for (var i=2; i<arguments.length; i++) {
-     args.push(arguments[i]);
-     }
-     return filter.apply(null, args);
-     };
-
-     Filters.grayscale = function(pixels, args) {
-     var d = pixels.data;
-     for (var i=0; i<d.length; i+=4) {
-     var r = d[i];
-     var g = d[i+1];
-     var b = d[i+2];
-     // CIE luminance for the RGB
-     // The human eye is bad at seeing red and blue, so we de-emphasize them.
-     var v = 0.2126*r + 0.7152*g + 0.0722*b;
-     d[i] = d[i+1] = d[i+2] = v
-     }
-     return pixels;
-     };*!/
-     }*/
-
     function hideImg(callback) {
         $('#img').fadeOut(400, function () {
             if (callback)
@@ -320,11 +256,7 @@ $(function () {
         edCurWord.find('input[name="esong"]').val(words[wordsCounter].sound_url);
     });
 
-    //TODO btn delete all words (in settings) after you should reset dateLastWord
-
-    //TODO write code: optional field for email with label (enter your email and will get message with your password and login )
-
-    //TODO auto pseudo random generator for password and username
+    //TODO optional field for email with label (enter your email and will get message with your password and login )
 
     var intervalForScrolling;
 
@@ -390,7 +322,7 @@ $(function () {
                         $(header).addClass('collapsible-header flow-text').append(img, span, a);
 
                         $(body).addClass('collapsible-body').append(formClone);
-                        //TODO make btn that will be save edited words on lingualeo
+
                         $(li).append(header, body).on('click', function () {
                             var modal = $('#editAnotherWords');
                             var distFromTopLi = $(this).offset().top;
@@ -404,8 +336,6 @@ $(function () {
 
                         curI++;
 
-                        //TODO here is not cool thing, make approximately 20 li in one call of this function
-
                         if (curI > 5) {//solution of animation freezes (hide load to my weak processor)
                             setTimeout(addList, 0);
                             break;
@@ -415,7 +345,7 @@ $(function () {
 
                         if (i == data.length - 1) {
                             ul.find('p').fadeOut(200, function () {
-                                $('#totalNumb').text('the total number of words: ' + data.length);
+                                $('#totalNumb').find('span').text(data.length);
                                 $(ul).append(liItems);
                                 $('#previousWordsFoEdit, #nextWordsFoEdit')
                                     .css('display', 'block')
@@ -502,12 +432,17 @@ $(function () {
 
     $('#btn-delWord').on('click', delWord);
 
-    $('.btn-delAllWords').on('click', function () {
+    $('#confirmationFoDelAll').find('.agree').on('click', function () {
         $.ajax({
             url: "/words/deleteall",
             method: "GET",
             success: function () {
                 showMessage('all words were removed');
+
+                var edAnothEl = $('#editAnotherWords');
+                edAnothEl.find('ul').text('');
+                edAnothEl.find('#totalNumb span').text('0');
+
                 noWords();
             },
             error: function () {
@@ -515,6 +450,7 @@ $(function () {
             }
         });
     });
+
 
     function delWord(e) {
         var word = $(e.target).closest('li').find('input[name="eword"]').data('old') || words[wordsCounter].word;
@@ -524,6 +460,11 @@ $(function () {
             data: {'word': word},
             success: function () {
                 showMessage('word \'' + word + '\' was delete');
+
+                var totalNumbEl = $('#totalNumb').find('span');
+                var numWords = parseInt(totalNumbEl.text());
+                totalNumbEl.text(numWords - 1);
+
                 $('#side2').fadeOut(500, function () {
                     getWords();
                 });
@@ -535,15 +476,11 @@ $(function () {
     }
 
     function noWords() {
-        /*$('#wrapperOfWords').slideUp(200, function () {
-
-         });*/
         var side1 = $('#side1');
         side1.fadeIn(200).find('#word').text('no words yet');
         side1.find('#transcription').text('');
         $('#side2').slideUp(400);
         $('.imgWraper').slideUp(400);
-        //  showMessage('at the moment, no words');
     }
 
     function showMessage(mes) {
@@ -588,7 +525,6 @@ $(function () {
             e.preventDefault();
         }
         getLeoWords(form.serialize());
-        setTimeout(getWords, 5000);
         return false;
     });
 
@@ -602,8 +538,10 @@ $(function () {
             method: "POST",
             data: formData,
             success: function (data) {
-                if (+data > 0)
-                    showMessage('was added ' + data + ' words from linguaLeo')
+                if (+data > 0) {
+                    showMessage('was added ' + data + ' words from linguaLeo');
+                    getWords();
+                }
             }
         });
     }

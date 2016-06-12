@@ -129,8 +129,9 @@
     <div class="wrapperEditAnother">
         <div id="editAnotherWords" class="modal">
             <div class="modal-content">
-                <p id="totalNumb" class="flow-text">the total number of words:</p>
-                <button id="btn-delAllWords" class="btn waves-effect waves-light btn-delAllWords">delete all words</button>
+                <p id="totalNumb" class="flow-text">the total number of words: <span></span></p>
+                <button id="btn-delAllWords" data-target="confirmationFoDelAll" class="btn waves-effect waves-light btn-delAllWords modal-trigger">delete all words
+                </button>
                 <ul class="collapsible popout" data-collapsible="expandable">
                     <p class="preloaderWrapper"><img src="img/preloader.gif"></p>
                 </ul>
@@ -140,6 +141,16 @@
             <i class="material-icons">keyboard_arrow_down</i></a>
         <a id="previousWordsFoEdit">
             <i class="material-icons">keyboard_arrow_up</i></a>
+    </div>
+
+    <div id="confirmationFoDelAll" class="modal">
+        <div class="modal-content">
+            <h4>All words will be removed..</h4>
+        </div>
+        <div class="modal-footer">
+            <a class="agree modal-action modal-close waves-effect waves-green btn-flat">Agree</a>
+            <a class=" modal-action modal-close waves-effect waves-red btn-flat">Disagree</a>
+        </div>
     </div>
 
     <div id="wordsLeft">
@@ -169,8 +180,8 @@
         <div id="leoAuth" class="modal">
             <div class="modal-content">
                 <form name="leoAuth">
-                    <input name="email" type="text" autocomplete="off" autofocus placeholder="enter leo email">
-                    <input name="password" type="text" autocomplete="off" autofocus
+                    <input name="email" type="text" autofocus placeholder="enter leo email">
+                    <input name="password" type="text"
                            placeholder="enter leo password">
                     <button class="btn waves-effect waves-light" type="submit">get words</button>
                 </form>
@@ -188,9 +199,10 @@
                        min="1" max="100" step="1" value="10">
                 <br><br>
                 <input type="checkbox" id="autoGetter"/>
-                <label for="autoGetter">auto get data from LinguaLeo</label>
+                <label for="autoGetter">auto get new words from LinguaLeo</label>
                 <br><br>
-                <button class="btn waves-effect waves-light btn-delAllWords">delete all words</button>
+                <button data-target="confirmationFoDelAll" class="btn waves-effect waves-light btn-delAllWords modal-trigger">delete all words
+                </button>
             </div>
         </div>
 
