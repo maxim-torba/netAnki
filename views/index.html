@@ -56,7 +56,7 @@
                    id="btn-editDict"
                    href="#wrapperOfDict"
                    data-position="right" data-delay="50"
-                   data-tooltip="edit dictionary">
+                   data-tooltip="add word">
                 <i class="material-icons">add</i></a>
             </li>
             <li><a class="btn-floating blue-grey lighten-4 tooltipped btn waves-effect waves-light modal-trigger"
@@ -130,7 +130,8 @@
         <div id="editAnotherWords" class="modal">
             <div class="modal-content">
                 <p id="totalNumb" class="flow-text">the total number of words: <span></span></p>
-                <button id="btn-delAllWords" data-target="confirmationFoDelAll" class="btn waves-effect waves-light btn-delAllWords modal-trigger">delete all words
+                <button id="btn-delAllWords" data-target="confirmationFoDelAll"
+                        class="btn waves-effect waves-light btn-delAllWords modal-trigger">delete all words
                 </button>
                 <ul class="collapsible popout" data-collapsible="expandable">
                     <p class="preloaderWrapper"><img src="img/preloader.gif"></p>
@@ -161,9 +162,6 @@
     <div id="wrapperOfConfig">
         <div id="wrapperOfDict" class="modal">
             <div class="modal-content">
-                <button data-target="leoAuth" class="btn waves-effect waves-light modal-trigger">get from linguaLeo
-                </button>
-                <br>
                 <form name="setWords">
                     <input name="sword" type="text" autofocus placeholder="enter the word">
                     <input name="stranscription" type="text" placeholder="enter the transcription">
@@ -198,10 +196,15 @@
                 <input type="number" id="maxOldCards"
                        min="1" max="100" step="1" value="10">
                 <br><br>
+
+                <button data-target="leoAuth" class="btn waves-effect waves-light modal-trigger">get words from
+                    linguaLeo
+                </button>
                 <input type="checkbox" id="autoGetter"/>
                 <label for="autoGetter">auto get new words from LinguaLeo</label>
                 <br><br>
-                <button data-target="confirmationFoDelAll" class="btn waves-effect waves-light btn-delAllWords modal-trigger">delete all words
+                <button data-target="confirmationFoDelAll"
+                        class="btn waves-effect waves-light btn-delAllWords modal-trigger">delete all words
                 </button>
             </div>
         </div>
@@ -226,6 +229,11 @@
                     </li>
                     <li>You will continue the repetitions of each words until all of these items score at least
                         three
+                    </li>
+                    <li>For a comfortable use this app, you can install this
+                        <a href="https://chrome.google.com/webstore/detail/lingualeo-english-transla/nglbhlefjhcjockellmeclkcijildjhi?utm_source=chrome-app-launcher-info-dialog">extension</a>
+                        for your browser and add new words to <a href="http://lingualeo.com/">lingualeo</a>, then
+                        this application will automatically get your words. See settings.
                     </li>
                     <li>LinguaLeo do not have open api, so you need enter your email and password</li>
                     <br>

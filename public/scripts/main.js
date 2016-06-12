@@ -105,6 +105,10 @@ $(function () {
     $('.modal-trigger').leanModal();
 
     $('#showTranslate').click(function () {
+        $(this).delay(500).animate({
+            'opacity': 0,
+            'width': '+=200'
+        }, 400).css('cursor', 'default');
         hideImg(function () {
             $('#translate').text(words[wordsCounter].translate);
             $('#example').text(words[wordsCounter].example);
@@ -130,6 +134,12 @@ $(function () {
         wordsCounter++;
         if (wordsCounter != words.length) {
             $('#side2').fadeOut(200, function () {
+
+                $('#showTranslate').animate({
+                    'opacity': 1,
+                    'width': '-=199'  //1px somewhere disappears
+                }, 400).css('cursor', 'pointer');
+
                 showWord();
                 setNumOfWord(words.length - wordsCounter);
             });
@@ -192,13 +202,17 @@ $(function () {
         $('#transcription').text(words[wordsCounter].transcription);
         if (isPlaySound)
             playSound();
+        getIsPlaySound();
         showImg();
     }
 
     function showImg() {
         var imgElem = $('#img');
         imgElem.attr('src', "/img/preloader.gif");
-        imgElem.fadeIn(200);
+
+        $('.imgWraper').slideDown(300, function () {
+            imgElem.fadeIn(200);
+        });
 
         var img = new Image();
 
@@ -418,6 +432,7 @@ $(function () {
                         showMessage('you edited next word: ' + oldWord);
 
                         $('#side2').fadeOut(500, function () {
+                            isPlaySound = false;
                             getWords();
                         });
                     }
@@ -466,6 +481,7 @@ $(function () {
                 totalNumbEl.text(numWords - 1);
 
                 $('#side2').fadeOut(500, function () {
+                    isPlaySound = false;
                     getWords();
                 });
             },
@@ -505,6 +521,7 @@ $(function () {
                         showMessage('you added next words: ' + data.word.word);
                         form[0].reset();
                         setTimeout(function () {
+                            isPlaySound = false;
                             getWords();
                         }, 2000);
                     }
@@ -540,6 +557,7 @@ $(function () {
             success: function (data) {
                 if (+data > 0) {
                     showMessage('was added ' + data + ' words from linguaLeo');
+                    isPlaySound = false;
                     getWords();
                 }
             }

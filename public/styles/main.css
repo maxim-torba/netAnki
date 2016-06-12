@@ -73,7 +73,7 @@ input[type="text"], input[type="number"] {
     top: 25%;
 }
 
-#nextWordsFoEdit{
+#nextWordsFoEdit {
     bottom: 20%;
 }
 
@@ -138,7 +138,12 @@ input[type="text"], input[type="number"] {
     width: 100%;
 }
 
-#wrapperOfSettings .btn-delAllWords{
+label[for="autoGetter"] {
+    margin-left: 50px;
+    margin-bottom: 50px;
+}
+
+#wrapperOfSettings .btn-delAllWords {
     position: absolute;
     right: 20px;
     bottom: 20px;
