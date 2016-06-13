@@ -101,11 +101,12 @@
 
     <div id="modalEditCurrentWord" class="modal">
         <div class="modal-content">
-            <button class="btn waves-effect waves-light" id="btn-delWord">delete word</button>
-            <button data-target="editAnotherWords" class="btn waves-effect waves-light modal-trigger anoter"
-                    id="btn-editAnother">edit another words
-            </button>
-            <br><br>
+            <a id="btn-delWord" class="tooltipped" data-position="bottom" data-delay="50"
+               data-tooltip="delete this word">
+                <i class="material-icons">delete</i>
+            </a>
+            <!--<button class="btn waves-effect waves-light" id="btn-delWord">delete word</button>-->
+
             <form name="editWord">
                 <span>word</span>
                 <input name="eword" type="text" autofocus placeholder="enter the word">
@@ -130,9 +131,6 @@
         <div id="editAnotherWords" class="modal">
             <div class="modal-content">
                 <p id="totalNumb" class="flow-text">the total number of words: <span></span></p>
-                <button id="btn-delAllWords" data-target="confirmationFoDelAll"
-                        class="btn waves-effect waves-light btn-delAllWords modal-trigger">delete all words
-                </button>
                 <ul class="collapsible popout" data-collapsible="expandable">
                     <p class="preloaderWrapper"><img src="img/preloader.gif"></p>
                 </ul>
@@ -197,12 +195,16 @@
                        min="1" max="100" step="1" value="10">
                 <br><br>
 
-                <button data-target="leoAuth" class="btn waves-effect waves-light modal-trigger">get words from
+                <button data-target="leoAuth" class="btn-getFromLeo btn waves-effect waves-light modal-trigger">get
+                    words from
                     linguaLeo
                 </button>
                 <input type="checkbox" id="autoGetter"/>
                 <label for="autoGetter">auto get new words from LinguaLeo</label>
                 <br><br>
+                <button data-target="editAnotherWords" class="btn waves-effect waves-light modal-trigger anoter"
+                        id="btn-editAnother">edit all words
+                </button>
                 <button data-target="confirmationFoDelAll"
                         class="btn waves-effect waves-light btn-delAllWords modal-trigger">delete all words
                 </button>

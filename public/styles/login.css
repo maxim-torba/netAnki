@@ -2,12 +2,44 @@
 #entering{
     margin-top: 50%;
 }*/
+html {
+    background: rgba(0, 0, 0, 0.26) url("http://loremflickr.com/g/1366/768/all") no-repeat center center fixed;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+
+    transition: background-color 2s;
+}
+
+body {
+    padding: 30px;
+}
+
+.indigo.lighten-5 {
+    background-color: rgba(232, 234, 246, 0.73) !important;
+}
+
 .container {
     margin-top: 10%;
 }
 
+#entering {
+    margin-top: -20px;
+}
+
+#entering h4 {
+    font-weight: 300;
+}
+
 #entering form {
+    color: black;
     margin-top: 30px;
+    margin-left: 30px;
+}
+
+#entering form button {
+    background: rgba(39, 39, 39, 0.71);
 }
 
 #about {
@@ -15,10 +47,23 @@
     margin-top: 50px;
 }
 
-input[type]{
+input[type] {
     padding-left: 7px;
+    font-size: 160%;
+    height: auto;
+    margin-left: -5px;
+    background: rgba(0, 0, 0, .5);
 }
 
+/*
+#separator{
+    background: rgba(154, 154, 154, 0.32);
+    left: 50%;
+    top: 5%;
+    position: absolute;
+    height: 60%;
+    width: 4px;
+}*/
 
 @media only screen and (max-width: 600px) {
     .container {
@@ -31,5 +76,8 @@ input[type]{
 
     #entering form {
         margin-top: 10px;
+    }
+    #entering h4{
+        font-size: 25px;
     }
 }

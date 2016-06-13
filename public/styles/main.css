@@ -61,6 +61,18 @@ input[type="text"], input[type="number"] {
     text-align: center;
 }
 
+#btn-delWord{
+    cursor: pointer;
+    position: absolute;
+    right: 30px;
+    top: 20px;
+}
+
+#btn-editAnother{
+    width: 40%;
+    margin-top: -30px;
+}
+
 #previousWordsFoEdit, #nextWordsFoEdit {
     display: none;
     position: fixed;
@@ -98,7 +110,7 @@ input[type="text"], input[type="number"] {
     width: 50%;
     position: absolute;
     top: 2%;
-    left: 17%;
+    margin-left: 20px;
 }
 
 #btn-delAllWords {
@@ -141,12 +153,14 @@ input[type="text"], input[type="number"] {
 label[for="autoGetter"] {
     margin-left: 50px;
     margin-bottom: 50px;
+    margin-top: 20px;
 }
 
 #wrapperOfSettings .btn-delAllWords {
     position: absolute;
     right: 20px;
     bottom: 20px;
+    background: #A00000;
 }
 
 form[name='editWord'] span {
@@ -200,8 +214,7 @@ form[name='editWord'] span {
     transition: opacity .5s;
 }
 
-/*TODO rewrite below*/
-.btn-floating i.play, i.volume, i.material-icons {
+i.material-icons {
     font-size: 1.9rem;
     color: #26a69a;
 }
@@ -255,29 +268,48 @@ form[name='editWord'] span {
 }
 
 @media only screen and (max-width: 600px) {
+    #side1, #side2 {
+        font-size: 2px;
+    }
+
+    .btn-floating {
+        width: 20px;
+        height: 20px;
+    }
+
+    i.material-icons {
+        font-size: 0.9rem;
+    }
+
     #wrapperOfBtnFoWords {
         width: 100%;
         left: 1px;
     }
 
-    #translate {
-        font-size: 40px;
-    }
-
     #soundControl, #editCurrentWord {
         width: 0;
-        right: 50px;
+        top: 10px;
+        right: 30px;
+    }
+
+    #wrapperOfBtnFoWords {
+        bottom: 2px;
+    }
+
+    #showTranslate {
+        margin-bottom: 2px;
     }
 
     #editCurrentWord {
         margin-top: 100px;
     }
 
-    /*    .menu {
-            top: 0;
-            right: 0;
-            opacity: .5;
-        }*/
+    .menu {
+        margin-top: -15px;
+        top: 0;
+        left: 0;
+    }
+
     #img {
         max-width: 200px;
     }

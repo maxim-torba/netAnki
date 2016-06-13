@@ -1,7 +1,7 @@
 $(function () {
     var words, wordsCounter = 0;
-    var settingsReceived = false;
     var newWordsCounter = 0, oldWordsCounter = 0;
+    var settingsReceived = false;
     var isZeroIntervWord = false;
     var isPlaySound = true;
 
@@ -9,7 +9,6 @@ $(function () {
     $(window).on('beforeunload', function () {
         $('body').css('opacity', '0');
     });
-
 
     function getWords() {
         $.ajax({
@@ -118,6 +117,7 @@ $(function () {
 
     $('#f0,#f1,#f2,#f3,#f4,#f5').click(function () {
         var val = $(this).attr('value');
+        var side2 = $('#side2');
 
         $.ajax({
             url: "/words/update",
@@ -133,18 +133,20 @@ $(function () {
         }
         wordsCounter++;
         if (wordsCounter != words.length) {
-            $('#side2').fadeOut(200, function () {
 
+            if (side2.css('display') != 'none') {
                 $('#showTranslate').animate({
                     'opacity': 1,
                     'width': '-=199'  //1px somewhere disappears
                 }, 400).css('cursor', 'pointer');
+            }
 
+            side2.fadeOut(200, function () {
                 showWord();
                 setNumOfWord(words.length - wordsCounter);
             });
         } else {
-            $('#side2').fadeOut(200);
+            side2.fadeOut(200);
             wordsCounter = 0;
             if (!isZeroIntervWord) {
                 setIntervalNewWords();
@@ -260,7 +262,9 @@ $(function () {
         }
     });
 
-    $('#btn-editCurrentWord').on('click', function () {
+    $('#btn-editCurrentWord').on('click', updateModalEditCurWord);
+
+    function updateModalEditCurWord() {
         var edCurWord = $('#modalEditCurrentWord');
         edCurWord.find('input[name="eword"]').val(words[wordsCounter].word);
         edCurWord.find('input[name="etranscription"]').val(words[wordsCounter].transcription);
@@ -268,7 +272,7 @@ $(function () {
         edCurWord.find('input[name="eexample"]').val(words[wordsCounter].example);
         edCurWord.find('input[name="epic"]').val(words[wordsCounter].pic_url);
         edCurWord.find('input[name="esong"]').val(words[wordsCounter].sound_url);
-    });
+    }
 
     //TODO optional field for email with label (enter your email and will get message with your password and login )
 
@@ -483,6 +487,7 @@ $(function () {
                 $('#side2').fadeOut(500, function () {
                     isPlaySound = false;
                     getWords();
+                    setTimeout(updateModalEditCurWord, 1000);
                 });
             },
             error: function () {
