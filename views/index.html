@@ -7,7 +7,7 @@
     <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link type="text/css" rel="stylesheet" href="/styles/materialize.min.css" media="screen,projection"/>
     <link rel="stylesheet" href="/styles/main.css" type="text/css" media="screen"/>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0  user-scalable=no"/>
 </head>
 <body class="indigo lighten-5">
 <div class="container">
@@ -109,7 +109,7 @@
 
             <form name="editWord">
                 <span>word</span>
-                <input name="eword" type="text" autofocus placeholder="enter the word">
+                <input name="eword" type="text" placeholder="enter the word">
                 <span>transcription</span>
                 <input name="etranscription" type="text" placeholder="enter the transcription">
                 <span>translate</span>
@@ -132,14 +132,14 @@
             <div class="modal-content">
                 <p id="totalNumb" class="flow-text">the total number of words: <span></span></p>
                 <ul class="collapsible popout" data-collapsible="expandable">
-                    <p class="preloaderWrapper"><img src="../public/img/preloader.gif"></p>
+                    <p class="preloaderWrapper"><img src="../img/preloader.gif"></p>
                 </ul>
             </div>
         </div>
         <a id="nextWordsFoEdit">
-            <i class="material-icons">keyboard_arrow_down</i></a>
+            <i class="material-icons waves-effect waves-light">keyboard_arrow_down</i></a>
         <a id="previousWordsFoEdit">
-            <i class="material-icons">keyboard_arrow_up</i></a>
+            <i class="material-icons waves-effect waves-light">keyboard_arrow_up</i></a>
     </div>
 
     <div id="confirmationFoDelAll" class="modal">
@@ -161,7 +161,7 @@
         <div id="wrapperOfDict" class="modal">
             <div class="modal-content">
                 <form name="setWords">
-                    <input name="sword" type="text" autofocus placeholder="enter the word">
+                    <input name="sword" type="text" placeholder="enter the word">
                     <input name="stranscription" type="text" placeholder="enter the transcription">
                     <input name="stranslate" type="text" placeholder="enter the translate">
                     <input name="sexample" type="text" placeholder="enter the example">

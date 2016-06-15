@@ -61,7 +61,7 @@ input[type="text"], input[type="number"] {
     text-align: center;
 }
 
-#btn-delWord{
+#btn-delWord {
     cursor: pointer;
     position: absolute;
     right: 30px;
@@ -72,7 +72,7 @@ input[type="text"], input[type="number"] {
     color: #df0e1a;
 }
 
-#btn-editAnother{
+#btn-editAnother {
     width: 40%;
     margin-top: -30px;
 }
@@ -98,20 +98,13 @@ input[type="text"], input[type="number"] {
     font-size: 2.9rem;
 }
 
-.material-icons.delete:hover, #previousWordsFoEdit i:hover, #nextWordsFoEdit i:hover {
-    background: #cecece;
-}
-
-.material-icons.delete:active, #previousWordsFoEdit i:active, #nextWordsFoEdit i:active {
-    background: #fff;
-}
 
 .material-icons.delete {
     transition: background .5s;
 }
 
 #totalNumb {
-  /*  width: 50%;*/
+    /*  width: 50%;*/
     position: absolute;
     top: 2%;
     margin-left: 20px;
@@ -127,6 +120,9 @@ input[type="text"], input[type="number"] {
     margin-top: 65px;
 }
 
+#editAnotherWords i{
+    color: #df0e1a;
+}
 #editAnotherWords li img {
     padding: 5px;
     width: 50px;
@@ -272,26 +268,26 @@ i.material-icons {
 }
 
 @media only screen and (max-width: 600px) {
-    #side1 *, #side2 h1{
+    #side1 *, #side2 h1 {
         font-size: 40px;
         overflow-y: scroll;
         overflow-x: scroll;
     }
 
-    #btn-editAnother{
+    #btn-editAnother {
         width: 100%;
     }
 
-    .btn-getFromLeo{
-      font-size: 13px;
+    .btn-getFromLeo {
+        font-size: 13px;
         padding: 0;
     }
 
-    .material-tooltip{
-       display: none !important;
+    .material-tooltip {
+        display: none !important;
     }
 
-    #wrapperOfSettings .btn-delAllWords{
+    #wrapperOfSettings .btn-delAllWords {
         position: static;
         right: 0;
         bottom: 0;
@@ -302,7 +298,7 @@ i.material-icons {
         height: 24px;
     }
 
-    .grade-btns input[type="button"]{
+    .grade-btns input[type="button"] {
         line-height: 10px;
         width: 35px;
         height: 35px;
@@ -320,10 +316,14 @@ i.material-icons {
     }
 
     #soundControl, #editCurrentWord {
-
         top: -5px;
         right: 30px;
         margin-right: 10px;
+    }
+
+    #soundControl {
+        width: 30%;
+        right: 0;
     }
 
     #wrapperOfBtnFoWords {
@@ -335,15 +335,18 @@ i.material-icons {
     }
 
     #editCurrentWord {
-       right: 0;
+        right: 0;
     }
+
     .btn-floating.btn-large {
         width: 41px;
         height: 41px;
     }
-    button{
+
+    button {
         width: 100%;
     }
+
     .menu {
         margin-top: -15px;
         top: 3px;
@@ -353,6 +356,49 @@ i.material-icons {
     #img {
         max-width: 200px;
     }
+
+    #confirmationFoDelAll {
+        width: 80%;
+    }
+
+    #showTranslate:hover {
+        background: transparent;
+    }
+
+    #editAnotherWords .modal-content {
+        padding: 0;
+    }
+
+    #editAnotherWords .collapsible-header span {
+        width: 80%;
+        margin-left: 0;
+    }
+
+    #editAnotherWords a {
+        position: absolute;
+        right: 5px;
+    }
+
+    #editAnotherWords a:active {
+        background: #c0c0c0;
+    }
+
+    #editAnotherWords li img {
+        position: static;
+    }
+
+    /*
+    #editAnotherWords a {
+        display: none;
+    }
+    */
+    #editAnotherWords p img {
+        width: 50%;
+    }
+
+    /*    #editAnotherWords li:active a, #editAnotherWords li:hover a {
+            display: block;
+        }*/
 }
 
 /*@media only screen and (max-width: 993px) {

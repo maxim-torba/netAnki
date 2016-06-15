@@ -331,7 +331,7 @@ $(function () {
 
                         $(span).html('<b>' + word + '</b>' + ' - ' + translate + '<em>' + str + '</em>');
 
-                        $(a).html('<i class="material-icons delete">delete</i>')
+                        $(a).addClass('').html('<i class="material-icons waves-effect waves-light delete">delete</i>')
                             .on('click', function (e) {
                                 delWord(e);
                                 $(this).closest('li').remove();
