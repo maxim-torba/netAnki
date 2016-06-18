@@ -10,6 +10,17 @@ $(function () {
         $('body').css('opacity', '0');
     });
 
+ /*   $('#f0, #f1, #f2, #f3, #f4, #f5').on('mouseover', function () {
+       $(this).animate({
+           'opacity':'1'
+       }, 10)
+    })
+        .on('mouseout', function () {
+            $(this).animate({
+                'opacity':'0.6'
+            }, 10)
+        });*/
+
     function getWords() {
         $.ajax({
             url: "/words",
@@ -103,11 +114,12 @@ $(function () {
 
     $('.modal-trigger').leanModal();
 
-    $('#showTranslate').click(function () {
-        $(this).delay(500).animate({
+    $('#showTranslate').on('click mouseover',function () {
+        $(this).animate({
             'opacity': 0,
             'width': '+=200'
         }, 400).css('cursor', 'default');
+
         hideImg(function () {
             $('#translate').text(words[wordsCounter].translate);
             $('#example').text(words[wordsCounter].example);
@@ -134,15 +146,9 @@ $(function () {
         wordsCounter++;
         if (wordsCounter != words.length) {
 
-            if (side2.css('display') != 'none') {
-                $('#showTranslate').animate({
-                    'opacity': 1,
-                    'width': '-=199'  //1px somewhere disappears
-                }, 400).css('cursor', 'pointer');
-            }
-
             side2.fadeOut(200, function () {
                 showWord();
+
                 setNumOfWord(words.length - wordsCounter);
             });
         } else {
@@ -202,6 +208,12 @@ $(function () {
         $('#side1').fadeIn(300);
         $('#word').text(words[wordsCounter].word);
         $('#transcription').text(words[wordsCounter].transcription);
+
+        $('#showTranslate').animate({
+            'opacity': 1,
+            'width': '200'
+        }, 800).css('cursor', 'pointer');
+
         if (isPlaySound)
             playSound();
         getIsPlaySound();
@@ -502,6 +514,10 @@ $(function () {
         side1.find('#transcription').text('');
         $('#side2').slideUp(400);
         $('.imgWraper').slideUp(400);
+
+        $('#wrapperOfBtnFoWords').animate({
+            'opacity': 0
+        }, 400).css('cursor', 'default');
     }
 
     function showMessage(mes) {
@@ -606,13 +622,14 @@ $(function () {
         })
     });
 
-    $("#maxNewCards, #maxOldCards").keypress(function (evt) {
+    $("#maxNewCards, #maxOldCards")/*.keypress(function (evt) {
         evt.preventDefault();
-    }).change(function () {
+    })*/.on('change keypress', function () {
+        var data = $(this).val() || +$(this).text();
         $.ajax({
             url: "/users/settings",
             method: "POST",
-            data: {'id': $(this).attr('id'), 'data': $(this).val()},
+            data: {'id': $(this).attr('id'), 'data': data},
             success: function () {
                 showMessage('settings have been saved')
             },
