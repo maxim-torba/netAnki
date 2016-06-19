@@ -173,33 +173,17 @@ label[for="autoGetter"] {
     font-size: larger;
 }
 
-#f0, #f1, #f2, #f3, #f4, #f5 {
+/*#f0, #f1, #f2, #f3, #f4, #f5 {
     transition: opacity .6s;
     opacity: 0.7;
 }
 
 #f0:hover, #f1:hover, #f2:hover, #f3:hover, #f4:hover, #f5:hover{
     opacity: 1;
-}
+}*/
 
-#f0{
-    background-color: #035599;
-}
-
-#f1{
-    background-color: #9f257f;
-}
-#f2{
-    background-color: #db0628;
-}
-#f3{
-    background-color: #bc7007;
-}
-#f4{
-    background-color: #758a16;
-}
-#f5{
-    background-color: #497527;
+#f0,#f1,#f2,#f3,#f4,#f5{
+    background-color: #004D40;
 }
 
 
