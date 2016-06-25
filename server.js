@@ -1,4 +1,4 @@
-var http = require('http');
+
 var express = require('express');
 var path = require('path');
 var log = require('./libs/log')(module);
@@ -7,7 +7,7 @@ var logger = require('morgan');
 var session = require('express-session');
 var MongoStore = require('connect-mongo')(session);
 var bodyParser = require('body-parser');
-var errorHandler = require('errorhandler');
+
 var compression = require('compression');
 
 
@@ -75,7 +75,7 @@ app.all('*', function (req, res) {
  }
  */
 
-var server_port = process.env.OPENSHIFT_NODEJS_PORT || 8080;
+var server_port = process.env.OPENSHIFT_NODEJS_PORT || 80;
 var server_ip_address = process.env.OPENSHIFT_NODEJS_IP || '127.0.0.1';
 
 app.listen(server_port, server_ip_address, function () {

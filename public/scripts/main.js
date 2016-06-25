@@ -1,4 +1,5 @@
 $(function () {
+    alert();
     var words, wordsCounter = 0;
     var newWordsCounter = 0, oldWordsCounter = 0;
     var settingsReceived = false;
@@ -9,7 +10,7 @@ $(function () {
     $(window).on('beforeunload', function () {
         $('body').css('opacity', '0');
     });
-
+//TODO no words yet, letft time:
  /*   $('#f0, #f1, #f2, #f3, #f4, #f5').on('mouseover', function () {
        $(this).animate({
            'opacity':'1'
@@ -648,6 +649,45 @@ $(function () {
             }
         })
     })
+/*
+    function runOnKeys(func) {
+        var codes = [].slice.call(arguments, 1);
+
+        var pressed = {};
+
+        document.onkeydown = function (e) {
+
+            pressed[e.keyCode] = true;
+
+            for (var i = 0; i < codes.length; i++) {
+                if (!pressed[codes[i]]) {
+                    return;
+                }
+            }
+            pressed = {};
+
+            func();
+        };
+
+        document.onkeyup = function (e) {
+            delete pressed[e.keyCode];
+        };
+
+    }
+
+    runOnKeys(
+        twist, 17/!*<--It's ctrl*!/,
+        /!*"Q".charCodeAt(0),*!/
+        "Y".charCodeAt(0)
+    );
+
+   function twist() {
+       var degrees = 361;
+       $('#word').css({'-webkit-transform' : 'rotate('+ degrees +'deg)',
+           '-moz-transform' : 'rotate('+ degrees +'deg)',
+           '-ms-transform' : 'rotate('+ degrees +'deg)',
+           'transform' : 'rotate('+ degrees +'deg)'});
+   }*/
 
 });
 

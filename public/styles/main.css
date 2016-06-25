@@ -293,6 +293,10 @@ i.material-icons {
 }
 
 @media only screen and (max-width: 600px) {
+    .btn-floating i.menu {
+
+        font-size: 1.5rem;
+    }
     #side1 *, #side2 h1 {
         font-size: 40px;
         overflow-y: scroll;
