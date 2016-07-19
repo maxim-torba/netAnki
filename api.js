@@ -8,10 +8,12 @@ var request = require('request');
 var User = require('./db/models/User.js');
 var Word = require('./db/models/Word.js');
 
-mongoose.connect(config.get('mongoose:uri'));
+mongoose.connect(/*config.get('mongoose:uri')*/process.env.OPENSHIFT_MONGODB_DB_URL);
 
+var oldCardCounter = 0;
 var today = new Date();
 today.setHours(0, 0, 0, 0);
+
 
 // User API
 
@@ -119,11 +121,18 @@ exports.getWords = function (userId, callback) {
                 });
             },
             function (user, words, callback) {
+
+                setInterval(function () {
+                    oldCardCounter = 0;
+                    today = new Date();
+                    today.setHours(0, 0, 0, 0);
+                }, 1000*3600*24);
+
                 var newWordsInterval = new Date(user.dateNewWords);
                 var cards = [];
 
-                var newCardCounter = 0,
-                    oldCardCounter = 0;
+                var newCardCounter = 0;
+
                 var numOldWords = user.numWords.oldWords,
                     numNewWords = user.numWords.newWords;
 
@@ -385,6 +394,7 @@ exports.getLeoWords = function (req, callback) {
 
 
 function calcIntervalEF(card, grade) {
+
     var oldEF = card.EF,
         newEF = 0,
         nextDate = new Date(today);
