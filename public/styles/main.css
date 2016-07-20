@@ -277,13 +277,21 @@ i.material-icons {
     margin-bottom: 100px;
 }
 
-/*.menu {
-    top: 20px;
-    left: 20px;
-}*/
+.btn-refresh{
+    display: inline-block;
+    opacity: 0;
+    width: 150px;
+    height: 150px;
+    transition: all 0s ease;
+    border: 1px solid rgba(0, 128, 128, 0.17);
+    border-radius: 50%;
+    line-height: 150px;
+    text-align: center;
+    margin-top: 15%;
+}
+
 
 .fixed-action-btn {
-    /*left: 50px;*/
     top: 10px;
     right: 90%;
 }
