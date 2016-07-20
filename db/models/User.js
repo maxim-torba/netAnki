@@ -16,20 +16,12 @@ var User = new mongoose.Schema({
             type: Number,
             default: 10
         },
-        maxOldCards: {
-            type: Number,
-            default: 20
-        },
         leoAutoGet: {
             type: Boolean,
             default: false
         }
     },
     numWords: {
-        oldWords: {
-            type: Number,
-            default: 0
-        },
         newWords: {
             type: Number,
             default: 0

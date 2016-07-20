@@ -8,9 +8,8 @@ var request = require('request');
 var User = require('./db/models/User.js');
 var Word = require('./db/models/Word.js');
 
-mongoose.connect(/*config.get('mongoose:uri')*/process.env.OPENSHIFT_MONGODB_DB_URL);
+mongoose.connect(config.get('mongoose:uri'));/*process.env.OPENSHIFT_MONGODB_DB_URL*/
 
-var oldCardCounter = 0;
 var today = new Date();
 today.setHours(0, 0, 0, 0);
 
@@ -38,12 +37,10 @@ exports.setSettings = function (req) {
 
 exports.setNumOfWords = function (req) {
     var id = req.session.user;
-    var oldWords = req.body.oldWords;
     var newWords = req.body.newWords;
 
     return User.findOneAndUpdate({_id: id}, {
         numWords: {
-            oldWords: oldWords,
             newWords: newWords
         }
     }, {
@@ -55,7 +52,6 @@ exports.resetNumShowedWords = function (req) {
     var id = req.session.user;
     return User.findOneAndUpdate({_id: id}, {
         numWords: {
-            oldWords: 0,
             newWords: 0
         }
     }, {
@@ -121,23 +117,23 @@ exports.getWords = function (userId, callback) {
                 });
             },
             function (user, words, callback) {
-
-                setInterval(function () {
-                    oldCardCounter = 0;
+    
+                function getDate() {
                     today = new Date();
                     today.setHours(0, 0, 0, 0);
-                }, 1000*3600*24);
+                }
+                getDate();
+
+                setInterval(getDate, 1000*3600*24);
 
                 var newWordsInterval = new Date(user.dateNewWords);
                 var cards = [];
 
                 var newCardCounter = 0;
 
-                var numOldWords = user.numWords.oldWords,
-                    numNewWords = user.numWords.newWords;
+                var numNewWords = user.numWords.newWords;
 
-                var maxNewCards = user.settings.maxNewCards - numNewWords,
-                    maxOldCards = user.settings.maxOldCards - numOldWords;
+                var maxNewCards = user.settings.maxNewCards - numNewWords;
 
                 for (var i = 0; i < words.length; i++) {
                     var card = words[i];
@@ -164,11 +160,10 @@ exports.getWords = function (userId, callback) {
                                 newCardCounter++;
                             }
                         }
-                    } else if (oldCardCounter < maxOldCards) {
+                    } else {
                         var nextDate = new Date(card.nextDate);
                         if (nextDate <= today) {
                             cards.push(card);
-                            oldCardCounter++;
                         }
                     }
                 }

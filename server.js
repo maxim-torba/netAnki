@@ -42,7 +42,7 @@ app.use(session({
     resave: false,
     saveUninitialized: false,
     store: new MongoStore({
-        url: /*config.get('mongoose:uri')*/process.env.OPENSHIFT_MONGODB_DB_URL
+        url: config.get('mongoose:uri')/*process.env.OPENSHIFT_MONGODB_DB_URL*/
     })
 }));
 

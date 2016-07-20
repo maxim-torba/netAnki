@@ -1,6 +1,6 @@
 $(function () {
     var words, wordsCounter = 0;
-    var newWordsCounter = 0, oldWordsCounter = 0;
+    var newWordsCounter = 0;
     var settingsReceived = false;
     var isZeroIntervWord = false;
     var isPlaySound = true;
@@ -176,8 +176,6 @@ $(function () {
     function countShowedWords(word) {
         if (word.reps == 0) { //new word
             newWordsCounter++
-        } else {
-            oldWordsCounter++
         }
         sendNumShowedWords();
     }
@@ -186,7 +184,7 @@ $(function () {
         $.ajax({
             url: "/users/numwords", //Post - set, Get - reset
             method: "POST",
-            data: {"oldWords": oldWordsCounter, "newWords": newWordsCounter},
+            data: {"newWords": newWordsCounter},
             error: function () {
                 showMessage('changes were not saved due to problems with the Internet');
             }
@@ -194,7 +192,7 @@ $(function () {
     }
 
     function resetNumShowedWords() {
-        oldWordsCounter = newWordsCounter = 0;
+        newWordsCounter = 0;
         $.ajax({
             url: "/users/numwords",
             method: "GET",
@@ -514,10 +512,9 @@ $(function () {
         side1.find('#transcription').text('');
         $('#side2').slideUp(400);
         $('.imgWraper').slideUp(400);
-
-        $('#wrapperOfBtnFoWords').animate({
-            'opacity': 0
-        }, 400).css('cursor', 'default');
+        $('#showTranslate').fadeOut(100);
+        $('#wordsLeft').fadeOut(400);
+        $('#wrapperOfBtnFoWords').fadeOut(400);
     }
 
     function showMessage(mes) {
@@ -593,7 +590,6 @@ $(function () {
                 success: function (data) {
                     settingsReceived = true;
                     $('#maxNewCards').val(data.maxNewCards);
-                    $('#maxOldCards').val(data.maxOldCards);
                     $("#autoGetter").prop("checked", data.leoAutoGet);
 
                     if (fn) {
@@ -622,7 +618,7 @@ $(function () {
         })
     });
 
-    $("#maxNewCards, #maxOldCards")/*.keypress(function (evt) {
+    $("#maxNewCards")/*.keypress(function (evt) {
         evt.preventDefault();
     })*/.on('change keypress', function () {
         var data = $(this).val() || +$(this).text();
