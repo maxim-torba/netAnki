@@ -206,8 +206,11 @@ $(function () {
         $('#side1').fadeIn(300);
         $('#word').text(words[wordsCounter].word);
         $('#transcription').text(words[wordsCounter].transcription);
-
-        $('#showTranslate').animate({
+        $('#wordsLeft').fadeIn(400);
+        $('#wrapperOfBtnFoWords').fadeIn(400);
+    
+    
+        $('#showTranslate').fadeIn(100).animate({
             'opacity': 1,
             'width': '200'
         }, 800).css('cursor', 'pointer');
@@ -216,6 +219,7 @@ $(function () {
             playSound();
         getIsPlaySound();
         showImg();
+         
     }
 
     function showImg() {
@@ -644,46 +648,6 @@ $(function () {
             }
         })
     })
-/*
-    function runOnKeys(func) {
-        var codes = [].slice.call(arguments, 1);
-
-        var pressed = {};
-
-        document.onkeydown = function (e) {
-
-            pressed[e.keyCode] = true;
-
-            for (var i = 0; i < codes.length; i++) {
-                if (!pressed[codes[i]]) {
-                    return;
-                }
-            }
-            pressed = {};
-
-            func();
-        };
-
-        document.onkeyup = function (e) {
-            delete pressed[e.keyCode];
-        };
-
-    }
-
-    runOnKeys(
-        twist, 17/!*<--It's ctrl*!/,
-        /!*"Q".charCodeAt(0),*!/
-        "Y".charCodeAt(0)
-    );
-
-   function twist() {
-       var degrees = 361;
-       $('#word').css({'-webkit-transform' : 'rotate('+ degrees +'deg)',
-           '-moz-transform' : 'rotate('+ degrees +'deg)',
-           '-ms-transform' : 'rotate('+ degrees +'deg)',
-           'transform' : 'rotate('+ degrees +'deg)'});
-   }*/
-
 });
 
 
