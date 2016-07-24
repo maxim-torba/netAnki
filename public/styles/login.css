@@ -1,16 +1,10 @@
-/*
-#entering{
-    margin-top: 50%;
-}*/
+
 html {
     background: rgba(0, 0, 0, 0.26) url("http://loremflickr.com/g/1366/768/all") no-repeat center center fixed;
     -webkit-background-size: cover;
     -moz-background-size: cover;
     -o-background-size: cover;
     background-size: cover;
-
-    transition: background-color 2s;
-    /*opacity: 0;*/
 }
 
 body {
@@ -74,15 +68,6 @@ input[type]:focus {
     color: rgba(255, 255, 255, 0.42);
 }
 
-/*
-#separator{
-    background: rgba(154, 154, 154, 0.32);
-    left: 50%;
-    top: 5%;
-    position: absolute;
-    height: 60%;
-    width: 4px;
-}*/
 
 @media only screen and (max-width: 600px) {
     .container {

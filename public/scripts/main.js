@@ -208,6 +208,7 @@ $(function () {
         $('#transcription').text(words[wordsCounter].transcription);
         $('#wordsLeft').fadeIn(400);
         $('#wrapperOfBtnFoWords').fadeIn(400);
+        $('.btn-refresh').fadeOut(300);
         
         $('#showTranslate').fadeIn(100).animate({
             'opacity': 1,
@@ -431,10 +432,9 @@ $(function () {
     $(document.forms['editWord']).submit(sendFoEdit);
     
     function sendFoEdit(e) {
-        
         var form = $(this);
         var oldWord = form.find('input[name="eword"]').data('old') || words[wordsCounter].word;
-        
+
         if (!$(this).children("input[name='eword']").val()) {
             showMessage('you should enter the word');
         }
@@ -518,7 +518,7 @@ $(function () {
         $('#showTranslate').fadeOut(100);
         $('#wordsLeft').fadeOut(400);
         $('#wrapperOfBtnFoWords').fadeOut(400);
-        $('.btn-refresh').css('opacity', 1).fadeIn(300);
+        $('.btn-refresh').css({'display':'inline-block'}).fadeIn(300);
     }
     
     $('.btn-refresh').on('click mouseover', function () {

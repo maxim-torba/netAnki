@@ -278,8 +278,7 @@ i.material-icons {
 }
 
 .btn-refresh{
-    display: inline-block;
-    opacity: 0;
+    display: none;
     width: 150px;
     height: 150px;
     transition: all 0s ease;
@@ -472,7 +471,7 @@ i.material-icons {
            margin-right: 0;
        }*/
     #toast-container {
-        left: 5%;
+        right: 70%;
         top: 30%;
         max-width: 86%;
     }
