@@ -5,11 +5,15 @@ $(function () {
     var isZeroIntervWord = false;
     var isPlaySound = true;
     
-    $('body').css('opacity', '1');
+    $('body').css('opacity', '1').on('click', function () {
+        $('.tooltipped').tooltip('remove');
+        $('.tooltipped').tooltip({delay: 350});
+    });
+    
     $(window).on('beforeunload', function () {
         $('body').css('opacity', '0');
     });
-//TODO no words yet, letft time:
+    
     /*   $('#f0, #f1, #f2, #f3, #f4, #f5').on('mouseover', function () {
      $(this).animate({
      'opacity':'1'
@@ -152,8 +156,9 @@ $(function () {
                 setNumOfWord(words.length - wordsCounter);
             });
         } else {
-            side2.fadeOut(200);
+            words.length = 0;
             wordsCounter = 0;
+            side2.fadeOut(400);
             if (!isZeroIntervWord) {
                 setIntervalNewWords();
                 resetNumShowedWords();
@@ -434,7 +439,7 @@ $(function () {
     function sendFoEdit(e) {
         var form = $(this);
         var oldWord = form.find('input[name="eword"]').data('old') || words[wordsCounter].word;
-
+        
         if (!$(this).children("input[name='eword']").val()) {
             showMessage('you should enter the word');
         }
@@ -518,7 +523,7 @@ $(function () {
         $('#showTranslate').fadeOut(100);
         $('#wordsLeft').fadeOut(400);
         $('#wrapperOfBtnFoWords').fadeOut(400);
-        $('.btn-refresh').css({'display':'inline-block'}).fadeIn(300);
+        $('.btn-refresh').css({'display': 'inline-block'}).fadeIn(300);
     }
     
     $('.btn-refresh').on('click mouseover', function () {
@@ -526,7 +531,6 @@ $(function () {
         $('#side1').fadeOut(500);
         getWords();
     });
-    
     
     function showMessage(mes) {
         Materialize.toast(mes, 4000)

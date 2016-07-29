@@ -198,7 +198,7 @@ form[name='editWord'] span {
     margin-top: 10px;
     bottom: 30px;
     width: 50%;
-
+    display: none;
     left: 25%;
     right: 25%;
 }
