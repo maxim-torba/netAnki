@@ -26,6 +26,7 @@ $(function () {
      });*/
     
     function getWords() {
+        $('#img').attr('src', "/img/preloader.gif");
         $.ajax({
             url: "/words",
             method: "GET",
@@ -127,7 +128,7 @@ $(function () {
         hideImg(function () {
             $('#translate').text(words[wordsCounter].translate);
             $('#example').text(words[wordsCounter].example);
-            $('#side2').fadeIn(400);
+            $('#side2').fadeIn(100);
         });
     });
     
@@ -254,7 +255,7 @@ $(function () {
     }
     
     function hideImg(callback) {
-        $('#img').fadeOut(400, function () {
+        $('#img').fadeOut(300, function () {
             if (callback)
                 callback();
         });
@@ -438,9 +439,12 @@ $(function () {
     
     function sendFoEdit(e) {
         var form = $(this);
-        var oldWord = form.find('input[name="eword"]').data('old') || words[wordsCounter].word;
+        var oldWord = form.find('input[name="eword"]').data('old');
         
-        if (!$(this).children("input[name='eword']").val()) {
+        if (!oldWord)
+            return false;
+        
+        if (!form.children("input[name='eword']").val()) {
             showMessage('you should enter the word');
         }
         else {
@@ -519,7 +523,7 @@ $(function () {
         side1.fadeIn(300).find('#word').text('no words yet');
         side1.find('#transcription').text('');
         $('#side2').slideUp(400);
-        $('.imgWraper').slideUp(400);
+        $('.imgWraper').fadeOut(0);
         $('#showTranslate').fadeOut(100);
         $('#wordsLeft').fadeOut(400);
         $('#wrapperOfBtnFoWords').fadeOut(400);
@@ -528,7 +532,11 @@ $(function () {
     
     $('.btn-refresh').on('click mouseover', function () {
         $(this).fadeOut(300);
-        $('#side1').fadeOut(500);
+        $('#side1').fadeOut(400, function () {
+            $('.imgWraper').fadeIn(300);
+        });
+        
+        //$('#img').attr('src', "/img/preloader.gif");
         getWords();
     });
     
@@ -590,8 +598,8 @@ $(function () {
             success: function (data) {
                 if (+data > 0) {
                     showMessage('was added ' + data + ' words from linguaLeo');
-                    isPlaySound = false;
-                    getWords();
+                   // isPlaySound = false;
+                   // getWords();
                 }
             }
         });
