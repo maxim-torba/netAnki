@@ -1,4 +1,5 @@
 $(function () {
+    alert(')');
     var words, wordsCounter = 0;
     var newWordsCounter = 0;
     var settingsReceived = false;
