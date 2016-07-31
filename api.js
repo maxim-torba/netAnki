@@ -171,6 +171,7 @@ exports.getWords = function (userId, callback) {
                 }
                 callback(null, cards);
             }
+        //here is new string for commit
         ],
         callback
     );
