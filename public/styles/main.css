@@ -235,6 +235,7 @@ form[name='editWord'] span {
 }
 
 #wordsLeft span {
+    display: none;
     transition: opacity .5s;
 }
 

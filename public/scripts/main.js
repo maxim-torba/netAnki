@@ -5,10 +5,12 @@ $(function () {
     var settingsReceived = false;
     var isZeroIntervWord = false;
     var isPlaySound = true;
+    var btnEditAnother = $('#btn-editAnother');
     
     $('body').css('opacity', '1').on('click', function () {
-        $('.tooltipped').tooltip('remove');
-        $('.tooltipped').tooltip({delay: 350});
+        var tooltipped = $('.tooltipped');
+        tooltipped.tooltip('remove');
+        tooltipped.tooltip({delay: 350});
     });
     
     $(window).on('beforeunload', function () {
@@ -41,30 +43,24 @@ $(function () {
     
     getWords();
     
-    //TODO make something with next function
+    
+    var wordsLeftEl = $('#wordsLeft').on('mouseover', function () {
+        $(this).find('span').fadeIn(200)
+    }).on('mouseleave', function () {
+        $(this).find('span').fadeOut(100)
+    });
+    
     function setNumOfWord(numb) {
-        var wordsLeft = $('#wordsLeft');
-        var span = wordsLeft.find('span');
-        
-        wordsLeft.fadeIn(400, spanOpacity);
-        wordsLeft.on('mouseover', 1, spanOpacity);
-        wordsLeft.on('mouseleave', 0, spanOpacity);
-        
-        wordsLeft.find('p').text(numb);
-        
-        function spanOpacity(e) {
-            e = e || 0;
-            span.css('opacity', e.data || 0);
-        }
+        wordsLeftEl.find('p').text(numb);
     }
-
-//TODO after edit word should add in begin of db collection
+    
     function getIsPlaySound() {
+        var btnOnOff = $('#btn-onOff');
         if (localStorage.isPlaySound) {
             isPlaySound = (localStorage.isPlaySound === 'true');
-            $('#btn-onOff').data('value', String(isPlaySound));
+            btnOnOff.data('value', String(isPlaySound));
             if (!isPlaySound) {
-                $('#btn-onOff').attr('data-tooltip', 'turn on sound').find('.material-icons').text('volume_off');
+                btnOnOff.attr('data-tooltip', 'turn on sound').find('.material-icons').text('volume_off');
             }
         } else {
             setLocalSettings({isPlaySound: isPlaySound});
@@ -101,7 +97,7 @@ $(function () {
     }
     
     
-    $('#btn-editAnother').leanModal({
+    btnEditAnother.leanModal({
         complete: function () {
             $('#editAnotherWords').find('ul').html('<p class="preloaderWrapper"><img src="img/preloader.gif"></p>');
             $('#previousWordsFoEdit, #nextWordsFoEdit').css('display', 'none');
@@ -281,7 +277,7 @@ $(function () {
     
     var intervalForScrolling;
     
-    $('#btn-editAnother').on('click', function () {
+    btnEditAnother.on('click', function () {
         $.ajax({
             url: "/words/getall",
             method: "GET",
@@ -420,7 +416,7 @@ $(function () {
     
     $(document.forms['editWord']).submit(sendFoEdit);
     
-    function sendFoEdit(e) {
+    function sendFoEdit() {
         var form = $(this);
         var oldWord = form.find('input[name="eword"]').data('old');
         
@@ -439,11 +435,11 @@ $(function () {
                 statusCode: {
                     200: function () {
                         showMessage('you edited next word: ' + oldWord);
-                        
-                        $('#side2').fadeOut(500, function () {
-                            isPlaySound = false;
-                            getWords();
-                        });
+                        updateWordLocally(form.serializeArray());
+                        /*$('#side2').fadeOut(500, function () {
+                         isPlaySound = false;
+                         getWords();
+                         });*/
                     }
                 },
                 error: function () {
@@ -452,6 +448,14 @@ $(function () {
             });
         }
         return false;
+    }
+    
+    function updateWordLocally(newWordData) {
+        newWordData.forEach(function (obj) {
+            words[wordsCounter][obj.name.substring(1)] = obj.value;
+        });
+        $('#side2').fadeOut(200);
+        showWord();
     }
     
     $('#btn-delWord').on('click', delWord);
@@ -625,9 +629,7 @@ $(function () {
         })
     });
     
-    $("#maxNewCards")/*.keypress(function (evt) {
-     evt.preventDefault();
-     })*/.on('change keypress', function () {
+    $("#maxNewCards").on('change keypress', function () {
         var data = $(this).val() || +$(this).text();
         $.ajax({
             url: "/users/settings",
