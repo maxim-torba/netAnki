@@ -1,5 +1,5 @@
 $(function () {
-
+    
     var words, wordsCounter = 0;
     var newWordsCounter = 0;
     var settingsReceived = false;
@@ -14,17 +14,6 @@ $(function () {
     $(window).on('beforeunload', function () {
         $('body').css('opacity', '0');
     });
-    
-    /*   $('#f0, #f1, #f2, #f3, #f4, #f5').on('mouseover', function () {
-     $(this).animate({
-     'opacity':'1'
-     }, 10)
-     })
-     .on('mouseout', function () {
-     $(this).animate({
-     'opacity':'0.6'
-     }, 10)
-     });*/
     
     function getWords() {
         $('#img').attr('src', "/img/preloader.gif");
@@ -42,6 +31,7 @@ $(function () {
                 }
             }
         });
+        
         getUserSettings(function (d) {
             if (d) {
                 getLeoWords();
@@ -147,14 +137,16 @@ $(function () {
         });
         
         if (!isZeroIntervWord) {
-            countShowedWords(words[wordsCounter]);
+            if (words[wordsCounter].reps == 0) { //new word
+                newWordsCounter++;
+                sendNumShowedWords();
+            }
         }
+        
         wordsCounter++;
         if (wordsCounter != words.length) {
-            
             side2.fadeOut(200, function () {
                 showWord();
-                
                 setNumOfWord(words.length - wordsCounter);
             });
         } else {
@@ -162,7 +154,8 @@ $(function () {
             wordsCounter = 0;
             side2.fadeOut(400);
             if (!isZeroIntervWord) {
-                setIntervalNewWords();
+                if (newWordsCounter > 0)
+                    setIntervalNewWords();
                 resetNumShowedWords();
             }
             getZeroIntervalWords();
@@ -178,13 +171,6 @@ $(function () {
                 showMessage('changes were not saved due to problems with the Internet');
             }
         })
-    }
-    
-    function countShowedWords(word) {
-        if (word.reps == 0) { //new word
-            newWordsCounter++
-        }
-        sendNumShowedWords();
     }
     
     function sendNumShowedWords() {
@@ -226,7 +212,6 @@ $(function () {
             playSound();
         getIsPlaySound();
         showImg();
-        
     }
     
     function showImg() {
@@ -241,18 +226,15 @@ $(function () {
         
         img.onload = function () {
             imgElem.fadeOut(200, function () {
-                imgElem.attr('src', img.src).fadeIn(300/*, function () {
-                 drawImg();
-                 }*/);
+                imgElem.attr('src', img.src).fadeIn(300);
             });
         };
+        
         img.onerror = function () {
             showMessage('can\'t download this picture');
         };
         
         img.src = words[wordsCounter].pic_url || "/img/noPicture.png";
-        // img.src = "http://localhost/words/getimage?url=" + words[wordsCounter].pic_url;
-        
     }
     
     function hideImg(callback) {
@@ -524,6 +506,7 @@ $(function () {
         side1.fadeIn(300).find('#word').text('no words yet');
         side1.find('#transcription').text('');
         $('#side2').slideUp(400);
+        $('#img').fadeIn(0);
         $('.imgWraper').fadeOut(0);
         $('#showTranslate').fadeOut(100);
         $('#wordsLeft').fadeOut(400);
@@ -599,8 +582,8 @@ $(function () {
             success: function (data) {
                 if (+data > 0) {
                     showMessage('was added ' + data + ' word(s) from linguaLeo');
-                   // isPlaySound = false;
-                   // getWords();
+                    // isPlaySound = false;
+                    // getWords();
                 }
             }
         });
@@ -669,6 +652,3 @@ $(function () {
         })
     })
 });
-
-
-
