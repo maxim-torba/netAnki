@@ -1,5 +1,5 @@
 $(function () {
-    alert(')');
+
     var words, wordsCounter = 0;
     var newWordsCounter = 0;
     var settingsReceived = false;
@@ -287,7 +287,7 @@ $(function () {
     
     function updateModalEditCurWord() {
         var edCurWord = $('#modalEditCurrentWord');
-        edCurWord.find('input[name="eword"]').val(words[wordsCounter].word);
+        edCurWord.find('input[name="eword"]').val(words[wordsCounter].word).attr('data-old', words[wordsCounter].word);
         edCurWord.find('input[name="etranscription"]').val(words[wordsCounter].transcription);
         edCurWord.find('input[name="etranslate"]').val(words[wordsCounter].translate);
         edCurWord.find('input[name="eexample"]').val(words[wordsCounter].example);
@@ -598,7 +598,7 @@ $(function () {
             data: formData,
             success: function (data) {
                 if (+data > 0) {
-                    showMessage('was added ' + data + ' words from linguaLeo');
+                    showMessage('was added ' + data + ' word(s) from linguaLeo');
                    // isPlaySound = false;
                    // getWords();
                 }
