@@ -269,8 +269,8 @@ $(function () {
         edCurWord.find('input[name="etranscription"]').val(words[wordsCounter].transcription);
         edCurWord.find('input[name="etranslate"]').val(words[wordsCounter].translate);
         edCurWord.find('input[name="eexample"]').val(words[wordsCounter].example);
-        edCurWord.find('input[name="epic"]').val(words[wordsCounter].pic_url);
-        edCurWord.find('input[name="esong"]').val(words[wordsCounter].sound_url);
+        edCurWord.find('input[name="epic_url"]').val(words[wordsCounter].pic_url);
+        edCurWord.find('input[name="esong_url"]').val(words[wordsCounter].sound_url);
     }
     
     //TODO optional field for email with label (enter your email and will get message with your password and login )

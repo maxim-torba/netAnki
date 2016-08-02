@@ -204,8 +204,8 @@ exports.editWord = function (req) {
         translate: body.etranslate,
         transcription: body.etranscription,
         example: body.eexample,
-        sound_url: body.esong,
-        pic_url: body.epic
+        sound_url: body.esound_url,
+        pic_url: body.epic_url
     }).then(function () {
         console.log('word edited: ' + body.oldWord);
     })
