@@ -270,7 +270,7 @@ $(function () {
         edCurWord.find('input[name="etranslate"]').val(words[wordsCounter].translate);
         edCurWord.find('input[name="eexample"]').val(words[wordsCounter].example);
         edCurWord.find('input[name="epic_url"]').val(words[wordsCounter].pic_url);
-        edCurWord.find('input[name="esong_url"]').val(words[wordsCounter].sound_url);
+        edCurWord.find('input[name="esound_url"]').val(words[wordsCounter].sound_url);
     }
     
     //TODO optional field for email with label (enter your email and will get message with your password and login )
@@ -418,7 +418,7 @@ $(function () {
     
     function sendFoEdit() {
         var form = $(this);
-        var oldWord = form.find('input[name="eword"]').data('old');
+        var oldWord = form.find('input[name="eword"]').attr('data-old');
         
         if (!oldWord)
             return false;
