@@ -119,9 +119,30 @@ $(function () {
         });
     });
     
+    $(document).on('keydown', function (e) {
+        if (e.altKey) {
+            if (e.key == 's') {
+                $('#showTranslate').trigger('click');
+            }
+            
+            if (e.key >= 0 && e.key <= 5) {
+                var buttonId = '#f' + e.key;
+                $(buttonId).animate({'opacity': '.3'}, 300, function () {
+                    $(this).trigger('click').animate({'opacity': '1'});
+                });
+            }
+        }
+    });
+    
+    
     $('#f0,#f1,#f2,#f3,#f4,#f5').click(function () {
         var val = $(this).attr('value');
         var side2 = $('#side2');
+        var img = $('img');
+        
+        if (img.attr('src') == "/img/preloader.gif") {
+            
+        }
         
         $.ajax({
             url: "/words/update",
@@ -420,8 +441,10 @@ $(function () {
         var form = $(this);
         var oldWord = form.find('input[name="eword"]').attr('data-old');
         
-        if (!oldWord)
+        if (!oldWord) {
+            showMessage('nothing for edit yet');
             return false;
+        }
         
         if (!form.children("input[name='eword']").val()) {
             showMessage('you should enter the word');
