@@ -131,6 +131,7 @@ $(function () {
                     $(this).trigger('click').animate({'opacity': '1'});
                 });
             }
+            e.preventDefault();
         }
     });
     
