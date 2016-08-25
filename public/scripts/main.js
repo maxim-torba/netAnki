@@ -104,6 +104,13 @@ $(function () {
         }
     });
     
+    $('#btn-trainingMode').leanModal({
+        complete: function () {
+            $('.training-cards').css('display', 'none');
+            $('#wrapperOfModeTraining').find('img').css('display', 'inline');
+        }
+    });
+    
     $('.modal-trigger').leanModal();
     
     $('#showTranslate').on('click mouseover', function () {

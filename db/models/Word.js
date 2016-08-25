@@ -38,6 +38,9 @@ var Word = new mongoose.Schema({
     },
     EF: {
         type: Number
+    },
+    nextTrainingDate: {
+        type: Date
     }
 });
 

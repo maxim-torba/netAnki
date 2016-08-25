@@ -6,10 +6,10 @@ var fs = require('fs');
 
 app.get('/', function (req, res, next) {
     var userId = req.session.user;
-
+    
     api.getWords(userId, function (err, words) {
         if (err) throw err;
-
+        
         if (words.length) {
             return res.send(words);
         }
@@ -22,7 +22,7 @@ app.get('/', function (req, res, next) {
 
 app.get('/zerintrv', function (req, res) {
     var userId = req.session.user;
-
+    
     api.getZeroIntervalWords(userId)
         .then(function (words) {
             if (words.length) {
@@ -51,6 +51,31 @@ app.get('/getall', function (req, res) {
         })
         .catch(function (err) {
             if (err) throw err;
+        });
+});
+
+app.get('/trainingwords', function (req, res) {
+    var userId = req.session.user;
+    api.getTrainingWords(userId, function (err, words) {
+        if (err) throw err;
+        
+        if (words.length) {
+            return res.send(words);
+        }
+        else {
+            res.statusCode = 404;
+            return res.send({error: 'word can not find'});
+        }
+    });
+});
+
+app.post('/trainingwords', function (req, res) {
+    api.setRepeatDateTrainingWord(req)
+        .then(function () {
+            res.end();
+        })
+        .catch(function (err) {
+            console.log(err);
         });
 });
 
@@ -122,22 +147,22 @@ app.post('/getleowords', function (req, res) {
         }
         res.status(200).send(mes);
     });
-
+    
 });
 
 /*app.get('/getimage', function (req, res) {
-
+ 
  res.writeHead(200, {'Access-Control-Allow-Origin': 'http://127.0.0.1'});
-
+ 
  request.get(req.query.url).pipe(res);
-
+ 
  /!*   fs.readFile('./public/img/1.png', function (err, info) {
  if (err){
  console.log(err);
  }
  res.end(info);
  });*!/
-
+ 
  });*/
 
 module.exports = app;

@@ -153,7 +153,7 @@ exports.getWords = function (userId, callback) {
                     if (!card.EF) {
                         card.EF = 2.5;
                     }
-                 
+                    
                     if (!card.nextDate) { //then it new word
                         if (newWordsInterval <= today) {
                             if (newCardCounter < maxNewCards) {
@@ -179,6 +179,48 @@ exports.getWords = function (userId, callback) {
 exports.getAllWords = function (req) {
     return Word.find({'userId': req.session.user})
 };
+
+exports.getTrainingWords = function (userId, callback) {
+    async.waterfall([
+            function (callback) {
+                User.findById(userId, function (err, user) {
+                    if (err) throw err;
+                    callback(null, user);
+                });
+            },
+            function (user, callback) {
+                Word.find({'userId': userId}, function (err, words) {
+                    if (err) throw err;
+                    callback(null, user, words);
+                });
+            },
+            function (user, words, callback) {
+                var maxNewCards = user.settings.maxNewCards;
+                var trainingWords = [];
+                for (var i = 0; i < maxNewCards; i++) {
+                    if (!words[i].nextTrainingDate) {
+                        trainingWords.push(words[i])
+                    }
+                    else if (new Date(words[i].nextTrainingDate) <= today)
+                        trainingWords.push(words[i])
+                }
+                callback(null, trainingWords);
+            }
+        ],
+        callback
+    )
+};
+
+exports.setRepeatDateTrainingWord = function (req) {
+    var word = JSON.parse(req.body.word);
+    var nextDate = new Date(today);
+    nextDate.setDate(today.getDate() + 5); //+ five days
+    
+    return Word.update({_id: word._id}, {
+        nextTrainingDate: nextDate
+    })
+};
+
 
 exports.setWord = function (req) {
     var word = new Word({

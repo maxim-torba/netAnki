@@ -103,6 +103,14 @@
            data-position="bottom" data-delay="50" data-tooltip="edit current word">
             <i class="material-icons volume">mode_edit</i></a>
     </div>
+    <div id="trainingMode">
+        <a class="btn-floating blue-grey lighten-4 tooltipped btn waves-effect waves-light modal-trigger"
+           id="btn-trainingMode"
+           href="#wrapperOfModeTraining"
+           data-position="bottom" data-delay="50"
+           data-tooltip="training mode">
+            <i class="material-icons">question_answer</i></a>
+    </div>
 
     <div id="modalEditCurrentWord" class="modal">
         <div class="modal-content">
@@ -157,7 +165,7 @@
         </div>
     </div>
 
-    <div id="wordsLeft" class="hide-on-small-only">
+    <div id="wordsLeft">
         <p></p>
         <span>word(s) left</span>
     </div>
@@ -211,6 +219,28 @@
                 </button>
             </div>
         </div>
+
+        <div id="wrapperOfModeTraining" class="modal">
+            <img src="img/preloader.gif">
+            <div class="modal-content training-cards">
+                <div id="trainingSide1">
+                    <h1 id="trainingWord"></h1>
+                </div>
+
+                <input id="inputValidation" autofocus type="text" autocomplete="off"
+                       placeholder="enter the translation">
+
+                <!--<div class="divider"></div>-->
+
+                <div id="trainingSide2">
+                    <h1 id="trainingTranslate"></h1>
+                    <h2 id="trainingTranscription"></h2>
+                    <h2 id="trainingExample" class="flow-text"></h2>
+                </div>
+                <span class="next-word-instruction">press enter to show translate and next word</span>
+            </div>
+        </div>
+
 
         <div id="wrapperAbout" class="modal">
             <div class="modal-content">
@@ -267,6 +297,7 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.2/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.7/js/materialize.min.js"></script>
 <script type="text/javascript" src="/scripts/main.js"></script>
+<script type="text/javascript" src="/scripts/training.mode.js"></script>
 <!--<script type="text/javascript" src="/scripts/materialize.min.js"></script>-->
 </body>
 </html>
