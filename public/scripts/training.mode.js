@@ -20,6 +20,10 @@ $(function () {
     });
     
     function showWord() {
+        if (wordsCounter == words.length) {
+            $('.training-cards').fadeOut(600);
+        }
+        
         $('#trainingWord').fadeOut(300, function () {
             $(this).text(words[wordsCounter].translate).fadeIn(300);
         });
