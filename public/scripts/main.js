@@ -127,8 +127,9 @@ $(function () {
     });
     
     $(document).on('keydown', function (e) {
+       // console.log(e.altKey, e.key);
         if (e.altKey) {
-            if (e.key == 's') {
+            if (e.keyCode == 83) { //s
                 $('#showTranslate').trigger('click');
             }
             

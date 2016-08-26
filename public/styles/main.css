@@ -316,8 +316,8 @@ i.material-icons {
     display: none;
 }
 
-#trainingWord {
-    margin-top: 3%;
+#trainingSide1 {
+    margin-top: 2%;
 }
 
 .next-word-instruction {
@@ -328,8 +328,11 @@ i.material-icons {
 }
 
 #inputValidation {
+    margin-top: 2%;
     width: 50%;
     font-size: 2rem;
+    border-bottom: 1px solid #000000;
+    box-shadow: 0 0 0 0 #000000;
 }
 
 @media only screen and (max-width: 600px) {

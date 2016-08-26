@@ -19,7 +19,6 @@ $(function () {
     }
     
     function showWord() {
-        console.log(words.length, wordsCounter);
         $('#trainingWord').fadeOut(300, function () {
             $(this).text(words[wordsCounter].translate).fadeIn(300);
         });
