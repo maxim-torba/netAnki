@@ -1,6 +1,8 @@
 $(function () {
     var words = [], wordsCounter = 0;
-    $('#btn-trainingMode').on('click', function () {
+    $('#btn-trainingMode').on('click', getTrainingWords);
+    
+    function getTrainingWords() {
         $.ajax({
             url: "/words/trainingwords",
             method: "GET",
@@ -12,18 +14,12 @@ $(function () {
                 });
                 
                 showWord();
-            },
-            error: function () {
-                showMessage('can\'t get training words');
             }
         });
-    });
+    }
     
     function showWord() {
-        if (wordsCounter == words.length) {
-            $('.training-cards').fadeOut(600);
-        }
-        
+        console.log(words.length, wordsCounter);
         $('#trainingWord').fadeOut(300, function () {
             $(this).text(words[wordsCounter].translate).fadeIn(300);
         });
@@ -82,9 +78,18 @@ $(function () {
     }
     
     function nextWord() {
-        ++wordsCounter;
         $('#inputValidation').val('').removeClass('correctly wrong');
         $('#trainingSide2').fadeOut();
-        showWord();
+        
+        if (words.length != wordsCounter + 1) {
+            ++wordsCounter;
+            showWord();
+        } else {
+            $('.training-cards').fadeOut(400, function () {
+                $('#wrapperOfModeTraining').find('img').fadeIn(300);
+            });
+            Materialize.toast('getting next bunch of words', 4000);
+            getTrainingWords();
+        }
     }
 });

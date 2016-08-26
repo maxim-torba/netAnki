@@ -197,12 +197,15 @@ exports.getTrainingWords = function (userId, callback) {
             function (user, words, callback) {
                 var maxNewCards = user.settings.maxNewCards;
                 var trainingWords = [];
-                for (var i = 0; i < maxNewCards; i++) {
+                var i = 0;
+                while (trainingWords.length != maxNewCards) {
                     if (!words[i].nextTrainingDate) {
                         trainingWords.push(words[i])
                     }
-                    else if (new Date(words[i].nextTrainingDate) <= today)
+                    else if (new Date(words[i].nextTrainingDate) <= today) {
                         trainingWords.push(words[i])
+                    }
+                    i++;
                 }
                 callback(null, trainingWords);
             }
