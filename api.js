@@ -196,14 +196,22 @@ exports.getTrainingWords = function (userId, callback) {
             },
             function (user, words, callback) {
                 var maxNewCards = user.settings.maxNewCards;
+                if (words.length < maxNewCards) {
+                    maxNewCards = words.length;
+                }
                 var trainingWords = [];
                 var i = 0;
                 while (trainingWords.length != maxNewCards) {
-                    if (!words[i].nextTrainingDate) {
-                        trainingWords.push(words[i])
+                    if (words[i].EF >= 2.5) {
+                        if (!words[i].nextTrainingDate) {
+                            trainingWords.push(words[i])
+                        }
+                        else if (new Date(words[i].nextTrainingDate) <= today) {
+                            trainingWords.push(words[i])
+                        }
                     }
-                    else if (new Date(words[i].nextTrainingDate) <= today) {
-                        trainingWords.push(words[i])
+                    if (i == words.length - 1) {
+                        break;
                     }
                     i++;
                 }
