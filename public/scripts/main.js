@@ -106,7 +106,7 @@ $(function () {
     
     $('#btn-trainingMode').leanModal({
         complete: function () {
-            $('.training-cards').css('display', 'none');
+            $('.training-cards, #trainingSide2').css('display', 'none');
             $('#wrapperOfModeTraining').find('img').css('display', 'inline');
         }
     });

@@ -1,5 +1,7 @@
 $(function () {
     var words = [], wordsCounter = 0;
+    var translateBeforeAnsw = false;
+    
     $('#btn-trainingMode').on('click', getTrainingWords);
     
     function getTrainingWords() {
@@ -40,7 +42,7 @@ $(function () {
     
     $('#inputValidation').on('keyup', function (e) {
         var word = words[wordsCounter].word.toLowerCase();
-        var inputVal = $(this).val();
+        var inputVal = $(this).val().toLowerCase();
         
         if (word.slice(0, inputVal.length) == inputVal) {
             $(this).removeClass('wrong').addClass('correctly');
@@ -53,6 +55,7 @@ $(function () {
         
         if (e.keyCode == 13) {
             if ($('#trainingSide2').css('display') == 'none') {
+                translateBeforeAnsw = true;
                 showTranslate();
             } else {
                 nextWord();
@@ -60,7 +63,8 @@ $(function () {
         } else if (word.length == inputVal.length) {
             showTranslate();
             if (word == inputVal) {
-                setRepeatDate();
+                if (!translateBeforeAnsw)
+                    setRepeatDate();
             }
         }
     });
@@ -79,6 +83,8 @@ $(function () {
     function nextWord() {
         $('#inputValidation').val('').removeClass('correctly wrong');
         $('#trainingSide2').fadeOut();
+        
+        translateBeforeAnsw = false;
         
         if (words.length != wordsCounter + 1) {
             ++wordsCounter;
