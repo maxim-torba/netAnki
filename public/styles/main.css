@@ -474,6 +474,23 @@ i.material-icons {
     #wordsLeft p {
         font-size: 35px;
     }
+
+    #inputValidation{
+        font-size: 1em;
+        width: 80%;
+    }
+
+    .next-word-instruction{
+        font-size: 0.7em;
+    }
+
+    #trainingWord, #trainingTranslate {
+        font-size: 2.2rem;
+    }
+
+    #trainingTranscription {
+        font-size: 2rem;
+    }
 }
 
 @media only screen and (max-width: 993px) and (min-width: 600px) {

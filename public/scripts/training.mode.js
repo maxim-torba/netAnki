@@ -12,10 +12,17 @@ $(function () {
                 words = data;
                 wordsCounter = 0;
                 $('#wrapperOfModeTraining').find('img').fadeOut(200, function () {
-                    $('.training-cards').fadeIn(200);
+                    $('.training-cards').fadeIn(200, function () {
+                        $('#inputValidation').focus();
+                    });
                 });
                 
                 showWord();
+            },
+            statusCode: {
+                404: function () {
+                    Materialize.toast('No training words yet', 4000);
+                }
             }
         });
     }
@@ -24,6 +31,7 @@ $(function () {
         $('#trainingWord').fadeOut(300, function () {
             $(this).text(words[wordsCounter].translate).fadeIn(300);
         });
+        
     }
     
     function showTranslate() {
@@ -75,7 +83,7 @@ $(function () {
             method: "POST",
             data: {'word': JSON.stringify(words[wordsCounter])},
             error: function () {
-                showMessage('changes were not saved due to problems with the Internet');
+                Materialize.toast('changes were not saved due to problems with the Internet', 4000);
             }
         });
     }

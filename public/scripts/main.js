@@ -132,6 +132,10 @@ $(function () {
             if (e.keyCode == 83) { //s
                 $('#showTranslate').trigger('click');
             }
+    
+            if (e.keyCode == 82) { //r
+                playSound();
+            }
             
             if (e.key >= 0 && e.key <= 5) {
                 var buttonId = '#f' + e.key;

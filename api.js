@@ -201,6 +201,7 @@ exports.getTrainingWords = function (userId, callback) {
                 }
                 var trainingWords = [];
                 var i = 0;
+                
                 while (trainingWords.length != maxNewCards) {
                     if (words[i].EF >= 2.5) {
                         if (!words[i].nextTrainingDate) {
