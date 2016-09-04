@@ -7,6 +7,8 @@ $(function () {
     var isPlaySound = true;
     var btnEditAnother = $('#btn-editAnother');
     
+    chrome.runtime.sendMessage('bimpifajabcokmefpfglokjoacaaadgp', {status: "logged in"});
+    
     $('body').css('opacity', '1').on('click', function () {
         var tooltipped = $('.tooltipped');
         tooltipped.tooltip('remove');
@@ -127,12 +129,12 @@ $(function () {
     });
     
     $(document).on('keydown', function (e) {
-       // console.log(e.altKey, e.key);
+        // console.log(e.altKey, e.key);
         if (e.altKey) {
             if (e.keyCode == 83) { //s
                 $('#showTranslate').trigger('click');
             }
-    
+            
             if (e.keyCode == 82) { //r
                 playSound();
             }
@@ -255,9 +257,11 @@ $(function () {
         var img = new Image();
         
         img.onload = function () {
-            imgElem.fadeOut(200, function () {
-                imgElem.attr('src', img.src).fadeIn(300);
-            });
+            if (words[wordsCounter].pic_url == img.src || /\/img\/noPicture\.png/.test(img.src)) {
+                imgElem.fadeOut(200, function () {
+                    imgElem.attr('src', img.src).fadeIn(300);
+                });
+            }
         };
         
         img.onerror = function () {
@@ -685,6 +689,7 @@ $(function () {
             url: "/users/logout",
             method: "POST",
             success: function () {
+                chrome.runtime.sendMessage('bimpifajabcokmefpfglokjoacaaadgp', {status: "logged out"});
                 location.reload()
             }
         })
