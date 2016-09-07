@@ -7,7 +7,7 @@ $(function () {
     var isPlaySound = true;
     var btnEditAnother = $('#btn-editAnother');
     
-    if (chrome)
+    if (typeof chrome != "undefined")
         chrome.runtime.sendMessage('bimpifajabcokmefpfglokjoacaaadgp', {status: "logged in"});
     
     $('body').css('opacity', '1').on('click', function () {
@@ -690,7 +690,7 @@ $(function () {
             url: "/users/logout",
             method: "POST",
             success: function () {
-                if (chrome)
+                if (typeof chrome != "undefined")
                     chrome.runtime.sendMessage('bimpifajabcokmefpfglokjoacaaadgp', {status: "logged out"});
                 location.reload()
             }
