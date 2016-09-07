@@ -7,7 +7,8 @@ $(function () {
     var isPlaySound = true;
     var btnEditAnother = $('#btn-editAnother');
     
-    chrome.runtime.sendMessage('bimpifajabcokmefpfglokjoacaaadgp', {status: "logged in"});
+    if (chrome)
+        chrome.runtime.sendMessage('bimpifajabcokmefpfglokjoacaaadgp', {status: "logged in"});
     
     $('body').css('opacity', '1').on('click', function () {
         var tooltipped = $('.tooltipped');
@@ -361,8 +362,8 @@ $(function () {
                         formClone.find('input[name="etranscription"]').val(data[i].transcription);
                         formClone.find('input[name="etranslate"]').val(data[i].translate);
                         formClone.find('input[name="eexample"]').val(data[i].example);
-                        formClone.find('input[name="epic"]').val(data[i].pic_url);
-                        formClone.find('input[name="esong"]').val(data[i].sound_url);
+                        formClone.find('input[name="epic_url"]').val(data[i].pic_url);
+                        formClone.find('input[name="esound_url"]').val(data[i].sound_url);
                         
                         formClone.submit(sendFoEdit);
                         
@@ -689,7 +690,8 @@ $(function () {
             url: "/users/logout",
             method: "POST",
             success: function () {
-                chrome.runtime.sendMessage('bimpifajabcokmefpfglokjoacaaadgp', {status: "logged out"});
+                if (chrome)
+                    chrome.runtime.sendMessage('bimpifajabcokmefpfglokjoacaaadgp', {status: "logged out"});
                 location.reload()
             }
         })

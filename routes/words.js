@@ -80,6 +80,7 @@ app.post('/trainingwords', function (req, res) {
 });
 
 app.post('/', function (req, res) {
+    
     api.setWord(req)
         .then(function (result) {
             console.log("word created");
