@@ -156,10 +156,6 @@ $(function () {
         var side2 = $('#side2');
         var img = $('img');
         
-        if (img.attr('src') == "/img/preloader.gif") {
-            
-        }
-        
         $.ajax({
             url: "/words/update",
             method: "POST",
@@ -505,8 +501,8 @@ $(function () {
         $.ajax({
             url: "/words/deleteall",
             method: "GET",
-            success: function () {
-                showMessage('all words were removed');
+            success: function (mes) {
+                showMessage(mes);
                 
                 var edAnothEl = $('#editAnotherWords');
                 edAnothEl.find('ul').text('');
@@ -514,8 +510,8 @@ $(function () {
                 
                 noWords();
             },
-            error: function () {
-                showMessage('can not delete all words due to problems with the Internet');
+            error: function (err) {
+                showMessage(err);
             }
         });
     });

@@ -120,9 +120,10 @@ app.post('/delete', function (req, res) {
 });
 
 app.get('/deleteall', function (req, res) {
+    
     api.deleteAllWords(req)
-        .then(function () {
-            res.end();
+        .then(function (mes) {
+            res.end(mes);
         })
         .catch(function (err) {
             console.log(err);
@@ -150,20 +151,5 @@ app.post('/getleowords', function (req, res) {
     });
     
 });
-
-/*app.get('/getimage', function (req, res) {
- 
- res.writeHead(200, {'Access-Control-Allow-Origin': 'http://127.0.0.1'});
- 
- request.get(req.query.url).pipe(res);
- 
- /!*   fs.readFile('./public/img/1.png', function (err, info) {
- if (err){
- console.log(err);
- }
- res.end(info);
- });*!/
- 
- });*/
 
 module.exports = app;

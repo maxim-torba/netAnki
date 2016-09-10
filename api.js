@@ -276,23 +276,31 @@ exports.deleteWord = function (req) {
 exports.deleteAllWords = function (req) {
     var idUser = req.session.user;
     
-    return Word.remove({userId: idUser})
-        .then(function () {
-            var zeroDate = new Date(0);
-            User.findOneAndUpdate({_id: idUser}, {
-                dateNewWords: zeroDate
-            }, {
-                new: true
-            })
-                .then(function (data) {
-                    console.log(data);
-                })
-                .catch(function (err) {
-                    console.log(err)
-                });
-            
-            console.log('all words was removed');
-        });
+    return User.find({_id: idUser})
+        .then(function (data) {
+            if (data[0].username == 'max') {
+                return 'You can\'t delete all words in test account';
+            }
+            else {
+                return Word.remove({userId: idUser})
+                    .then(function () {
+                        var zeroDate = new Date(0);
+                        User.findOneAndUpdate({_id: idUser}, {
+                            dateNewWords: zeroDate
+                        }, {
+                            new: true
+                        })
+                            .then(function (data) {
+                                console.log(data);
+                            })
+                            .catch(function (err) {
+                                console.log(err);
+                            });
+                        
+                        return 'all words was removed';
+                    });
+            }
+        })
 };
 
 exports.updateWord = function (req) {
