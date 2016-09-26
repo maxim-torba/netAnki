@@ -28,10 +28,13 @@ $(function () {
     }
     
     function showWord() {
-        $('#trainingWord').fadeOut(300, function () {
-            $(this).text(words[wordsCounter].translate).fadeIn(300);
-        });
-        
+        var word = words[wordsCounter].translate;
+        if (word)
+            $('#trainingWord').fadeOut(300, function () {
+                $(this).text(word).fadeIn(300);
+            });
+        else
+            nextWord();
     }
     
     function showTranslate() {
