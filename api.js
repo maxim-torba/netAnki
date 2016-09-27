@@ -204,12 +204,13 @@ exports.getTrainingWords = function (userId, callback) {
                 
                 while (trainingWords.length != maxNewCards) {
                     if (words[i].EF >= 2.5) {
-                        if (!words[i].nextTrainingDate) {
-                            trainingWords.push(words[i])
-                        }
-                        else if (new Date(words[i].nextTrainingDate) <= today) {
-                            trainingWords.push(words[i])
-                        }
+                        if (words[i].translate)
+                            if (!words[i].nextTrainingDate) {
+                                trainingWords.push(words[i])
+                            }
+                            else if (new Date(words[i].nextTrainingDate) <= today) {
+                                trainingWords.push(words[i])
+                            }
                     }
                     if (i == words.length - 1) {
                         break;
