@@ -494,4 +494,3 @@ function calcIntervalEF(card, grade) {
     card.nextDate = nextDate;
     return card;
 }
-

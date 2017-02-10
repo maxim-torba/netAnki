@@ -51,6 +51,8 @@ $(function () {
         var word = words[wordsCounter].word.toLowerCase();
         var inputVal = $(this).val().toLowerCase();
         
+        if (e.ctrlKey || e.altKey || e.metaKey) return;
+        
         if (word.slice(0, inputVal.length) == inputVal) {
             $(this).removeClass('wrong').addClass('correctly');
         } else {
