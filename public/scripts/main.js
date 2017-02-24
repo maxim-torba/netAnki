@@ -686,7 +686,8 @@ $(function () {
             url: "/users/logout",
             method: "POST",
             success: function () {
-                if (typeof chrome != "undefined")
+                if (typeof chrome != "undefined" &&
+                    typeof chrome.runtime != "undefined")
                     chrome.runtime.sendMessage('bimpifajabcokmefpfglokjoacaaadgp', {status: "logged out"});
                 location.reload()
             }
