@@ -51,21 +51,6 @@ app.use('/users', users);
 app.use('/words', words);
 
 
-/*
- app.use(function(req, res, next){
- res.status(404);
- log.debug('Not found URL: %s',req.url);
- res.send({ error: 'Not found' });
- return;
- });
-
- app.use(function(err, req, res, next){
- res.status(err.status || 500);
- log.error('Internal error(%d): %s',res.statusCode,err.message);
- res.send({ error: err.message });
- return;
- });*/
-
 app.all('*', function (req, res) {
     res.redirect('/');
 });
@@ -79,7 +64,7 @@ var server_port = process.env.OPENSHIFT_NODEJS_PORT || 8080;
 var server_ip_address = process.env.OPENSHIFT_NODEJS_IP || '127.0.0.1';
 
 app.listen(server_port, server_ip_address, function () {
-  console.log( "Listening on " + server_ip_address + ", server_port " + server_port )
+    console.log( "Listening on " + server_ip_address + ", server_port " + server_port )
 });
 
 

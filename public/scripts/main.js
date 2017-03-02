@@ -7,7 +7,8 @@ $(function () {
     var isPlaySound = true;
     var btnEditAnother = $('#btn-editAnother');
     
-    if (typeof chrome != "undefined")
+    if (typeof chrome != "undefined" &&
+        typeof chrome.runtime != "undefined")
         chrome.runtime.sendMessage('bimpifajabcokmefpfglokjoacaaadgp', {status: "logged in"});
     
     $('body').css('opacity', '1').on('click', function () {
