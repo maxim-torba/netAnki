@@ -9,7 +9,7 @@ $(function () {
     
     if (typeof chrome != "undefined" &&
         typeof chrome.runtime != "undefined")
-        chrome.runtime.sendMessage('bimpifajabcokmefpfglokjoacaaadgp', {status: "logged in"});
+        chrome.runtime.sendMessage('gbgnohiocahnnlecfgnmcimphbahlhnj', {status: "logged in"});
     
     $('body').css('opacity', '1').on('click', function () {
         var tooltipped = $('.tooltipped');
@@ -689,7 +689,7 @@ $(function () {
             success: function () {
                 if (typeof chrome != "undefined" &&
                     typeof chrome.runtime != "undefined")
-                    chrome.runtime.sendMessage('bimpifajabcokmefpfglokjoacaaadgp', {status: "logged out"});
+                    chrome.runtime.sendMessage('gbgnohiocahnnlecfgnmcimphbahlhnj', {status: "logged out"});
                 location.reload()
             }
         })
