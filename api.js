@@ -240,7 +240,7 @@ exports.setWord = function (req) {
         userId: req.session.user,
         word: req.body.sword,
         transcription: req.body.stranscription,
-        translate: req.body.stranslate,
+        translate: decodeURIComponent(req.body.stranslate),
         example: req.body.sexample,
         pic_url: req.body.spic,
         sound_url: req.body.ssong
@@ -424,7 +424,7 @@ exports.getLeoWords = function (req, callback) {
                         });
                         new Word(word).save()
                             .then(function (data) {
-                                
+                            
                             })
                             .catch(function (err) {
                                 if (err) throw err;
